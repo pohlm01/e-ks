@@ -94,5 +94,7 @@ Overzichtspagina voor politieke groeperingen - 1
 
 Verkiezingen kunnen selecteren (politieke partij) - 3
 
+Gegevens versleutelen - 3
+
 
 
