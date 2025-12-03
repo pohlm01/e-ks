@@ -1,100 +1,72 @@
-# Roadmap sessie 
+# Roadmap 
+---
+### Januari t/m mei
+- Deployment architectuur kubernetes yaml 
+- CI/CD pipeline opzetten
+- Kandidatenset (personenlijst)
+- Algemene lijstgegevens verwerken 
+- DigiD inlog/ E-Herkenning inlog /aansluiten TVS (inclusief inlog buitenland?) 
+- Inloggen BES eilanden 
+- BRP koppeling 
+- Overzichtspagina voor politieke groeperingen 
+- e-KS test website 
+- Kandidatenlijst opstellen 
+- Kandidatenlijst opstellen per kieskring* 
+- Verschillende configuraties per verkiezing 
+- Kandidatenlijst uitprinten 
+- Instemmingsverklaring afgeven 
+- Instemmingsverklaring uitprinten 
+- Machtingverklaring afgeven
+- Machtingsverklaring uitprinten
+- Blanco lijsten aanmaken
+- Samengestelde lijst
+- Monitoring
+- Audit log
+- Defintieve kandidatenlijst opstellen en uitprinten
+- Voorlopige kandidatenlijst opstellen en uitprinten
+- Definitieve inlevering
+- Infographic na alles uitprinten
+- Export/import functionaliteit kandidaten
 
-Deployment architectuur kubernetes yaml - 1
+### Mei t/m oktober
+- Betalingsbewijs waarborgsom
+- Overzichtspagina voor CSB's
+- Ondersteuningsverklaringen fase 1
+- Registratie partijen fase 1
+- EML (kandidatenlijsten, totaallijst en verkiezingsdefinitie)
+- Verzuimbrieven genereren
+- Design systeem
+- Gebruikersbeheer
+- Goedkeuring door CSB
+- Afkeuren/schrappen door CSB
+- Ambtelijke correctie door het CSB
+- Herstel verzuimen
+- Gegevens versleutelen
+- Kiesraad dashboard
 
-Kandidatenset (personenlijst) - 1
 
-Ondersteuningsverklaringen fase 1 - 2
+### Later (niet voor Eerste kamer relevant)
+- Ondersteuningsverklaringen fase 2
+- Registratie partijen fase 2
+- Y13: Verklaring exclusieve kandidaatstelling Nederland
+- Y35: Verklaring niet-Nederlandse kandidaten. Kandidaat is niet uitgesloten van het recht om verkozen te worden
+- Verkiezingen kunnen selecteren (politieke partij)
+- Verkiezingsbeheer voor politieke partij
+- Meldingen inrichten
+- To do lijst voor politieke partijen
 
-Ondersteuningsverklaringen fase 2 - 3 
 
-Algemene lijstgegevens verwerken - 1 
 
-DigiD inlog/ E-Herkenning inlog /aansluiten TVS (inclusief inlog buitenland?) - 1
 
-BRP koppeling - 1 
 
-Registratie partijen fase 1 - 2
 
-Registratie partijen fase 2 - 3
 
-Blanco lijsten aanmaken - 1
 
-Kandidatenlijst opstellen - 1
 
-Kandidatenlijst opstellen per kieskring* - 3
 
-Samengestelde lijst - 2
 
-Y13 - aanvullen - 3
 
-Y35 - aanvullen - 3
 
-Verschillende configuraties per verkiezing - 1
-
-EML (kandidatenlijsten, totaallijst en verkiezingsdefinitie) - 2
-
-Verzuimbrieven genereren - 2
-
-Kandidatenlijst uitprinten - 1
-
-Instemmingsverklaring afgeven - 1 
-
-Instemmingsverklaring uitprinten - 1
-
-Machtingverklaring afgeven - 2
-
-Machtingsverklaring uitprinten - 2
-
-CI/CD pipeline opzetten - 1
-
-Design systeem - 2
-
-Monitoring - 1
-
-Audit log - 1
-
-e-KS test website - 1
-
-Gebruikersbeheer - 2
-
-Verkiezingsbeheer voor politieke partij - 3
-
-Betalingsbewijs waarborgsom - 2
-
-Goedkeuring door CSB - 2 
-
-Afkeuren/schrappen door CSB - 2
-
-Ambtelijke correctie door het CSB - 2
-
-Herstel verzuimen - 2
-
-Defintieve kandidatenlijst opstellen en uitprinten - 1
-
-Voorlopige kandidatenlijst opstellen en uitprinten - 1
-
-Meldingen inrichten - 3
-
-Definitieve inlevering - 1 
-
-Infographic na alles uitprinten - 1
-
-To do lijst voor politieke partijen - 3
-
-Export/import functionaliteit kandidaten - 2
-
-Inloggen BES eilanden - 1
-
-Kiesraad dashboard - 2
-
-Overzichtspagina voor CSB's - 2
-
-Overzichtspagina voor politieke groeperingen - 1
-
-Verkiezingen kunnen selecteren (politieke partij) - 3
-
-Gegevens versleutelen - 3
 
 
 
