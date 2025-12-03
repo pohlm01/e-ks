@@ -1,15 +1,15 @@
 # Use cases Politieke groepering
 
-## Politieke groepering maakt de set benodigde documenten.
+## Politieke groepering maakt de set benodigde documenten (vlieger)
 
-__Niveau:__ Hoog-over, vlieger
+__Niveau:__ Hoog-over, vlieger, 🪁
 
 ### Hoofdscenario en uitbreidingen
 
 __Hoofdscenario:__
 
-1. Politieke groepering zet alle algemene lijstgegevens in de applicatie.
-2. Politieke groepering zet alle personen in de applicatie. TODO: link
+1. [Politieke groepering zet alle algemene lijstgegevens in de applicatie.](#politieke-groepering-zet-alle-algemene-lijstgegevens-in-de-applicatie-zee)
+2. [Politieke groepering zet alle personen in de applicatie.](#politieke-groepering-zet-alle-personen-in-de-applicatie-zee)
 3. Politieke groepering maakt de kandidatenlijsten.
 4. Politieke groepering machtigt de lijstinleveraar.
 5. Kandidaten geven instemming met hun plek op de lijst.
@@ -21,9 +21,9 @@ __Uitbreidingen__:
 - Partij heeft geen zetels in vertegenwoordigend orgaan, dus waarborgsom en ondersteuningsverklaringen.
 
 
-## Gebruiker politieke groepering logt voor de eerste keer in
+## Gebruiker politieke groepering logt voor de eerste keer in (zee)
 
-__Niveau:__ Taak, zee
+__Niveau:__ Gebruikersdoel, zee, 🌊
 
 __Hoofdscenario:__
 
@@ -31,9 +31,9 @@ __Hoofdscenario:__
 2. De gebruiker kiest rol: gemachtigde of lijstinleveraar.
 
 
-## Politieke groepering zet alle algemene lijstgegevens in de applicatie.
+## Politieke groepering zet alle algemene lijstgegevens in de applicatie (zee)
 
-__Niveau:__ Taak, zee
+__Niveau:__ Gebruikersdoel, zee, 🌊
 
 __Pre-condities:__
 
@@ -53,9 +53,9 @@ __Hoofdscenario:__
 
 - Check wie welke stap doet.
 
-## Politieke groepering zet alle personen in de applicatie.
+## Politieke groepering zet alle personen in de applicatie (zee)
 
-__Niveau:__ Taak, zee
+__Niveau:__ Gebruikersdoel, zee, 🌊
 
 __Pre-condities:__
 
@@ -65,5 +65,5 @@ __Pre-condities:__
 
 __Hoofdscenario:__
 
-1. (per persoon) De lijstinleveraar vult de benodigde personalia (Personalia kandidaat H1) in. TODO: link
+1. (per persoon) De lijstinleveraar vult de benodigde personalia ([Personalia kandidaat H1](./data.md#personalia-kandidaat-h1-art-h2-kiesbesluit)) in.
 2. (per persoon) De applicatie valideert de ingevoerde gegevens en geeft feedback.
