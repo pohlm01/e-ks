@@ -11,7 +11,7 @@ __Hoofdscenario:__
 1. [Politieke groepering zet alle algemene lijstgegevens in de applicatie.](#politieke-groepering-zet-alle-algemene-lijstgegevens-in-de-applicatie-zee)
 2. [Politieke groepering maakt de kandidatenlijsten.](#politieke-groepering-maakt-de-kandidatenlijsten-zee)
 3. Politieke groepering machtigt de lijstinleveraar.
-4. Kandidaten geven instemming met hun plek op de lijst.
+4. [Kandidaten geven instemming met hun plek op de lijst.](#kandidaten-geven-instemming-met-hun-plek-op-de-lijst-zee)
 5. De lijstinleveraar stelt vast alle gegevens volledig zijn.
 6. De lijstinleveraar downloadt en print alle benodigde documenten.
 
@@ -78,3 +78,35 @@ __Uitbreidingen__:
 ## Politieke groepering machtigt de lijstinleveraar (zee)
 
 __Niveau:__ Gebruikersdoel, zee, 🌊
+
+**afhankelijk van e-Herkenning**
+
+## Kandidaten geven instemming met hun plek op de lijst (zee)
+
+*Nog bespreken met Marlon en Grietje*
+
+__Niveau:__ Gebruikersdoel, zee, 🌊
+
+1. Lijstinleveraar geeft BSN's van kandidaten door op de kandidatenlijst
+2. Lijstinleveraar bericht kandidaten dat ze kunnen inloggen op de applicatie
+3. Kandidaten loggen in op de applicatie met DigiD
+4. De applicatie maakt een koppeling met de BRP
+5. Kandidaat bevestigt dat de gegevens uit de BRP correct zijn
+6. Kandidaat bekijkt de kandidatenlijst
+7. Kandidaat stemt in met de plek op de kandidatenlijst
+8. Op het model H9 komt een vinkje te staan dat de kandidaat heeft ingestemd met DigiD *vraag: bij uitbreiding van 7a, gebeurd 8 niet en bij 3 ook niet, hoe schrijf je dat dan op?*
+
+__Uitbreidingen__:
+
+- 3a. Kandidaat logt niet in met DigiD
+  - 3a1. Kandidaten zetten hun handtekening op de H9
+- 5a. Kandidaat ziet dat de gevens niet goed zijn
+  - 5a1. De kandidaat ast de gegevens aan
+  - 5a2. De applicatie geeft een waarschuwing dat de gegevens niet overeenkomen met de BRP
+  - 5a3. De kandidaat bevestigt gegevens
+- 7a. Kandidaat stemt niet in met de plek op de lijst.
+  - 7a1. Er wordt geen H9 voor de kandidaat aangemaakt
+
+
+__Open punten__:
+1. Is BSN verplicht? @ Richard
