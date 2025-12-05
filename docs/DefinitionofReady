@@ -1,0 +1,22 @@
+#### Defintion of Ready
+
+We werken op twee niveaus met een definition of ready (DoR): 
+
+## DoR epic niveau:
+
+- Security en privacy aspecten zijn benoemd
+- De implementatie issues zijn uitgewerkt (Tech Lead)
+- De vormgeving beschikbaar is (UI/UX designer)
+- Testplan voor de epic
+- Gedefinieerd is hoe en wanneer feedback wordt opgehaald
+- Er een tijdsinschatting is afgegeven
+- De PO akkoord is met de uitwerking en bijbehorende inschatting
+
+## DoR issue niveau:
+
+- Linkt naar een epic die ‘ready’ is
+- Besproken en duidelijk voor het dev team.
+- Acceptatie criteria zijn beschreven
+- Heeft een tijdsinschatting
+- Heeft een design 
+- Belangrijkste testcases zijn doorgesproken
