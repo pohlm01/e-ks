@@ -18,7 +18,7 @@ __Hoofdscenario:__
 
 __Uitbreidingen__:
 
-- Partij heeft geen zetels in vertegenwoordigend orgaan, dus waarborgsom en ondersteuningsverklaringen.
+0. Partij heeft geen zetels in vertegenwoordigend orgaan, dus waarborgsom en ondersteuningsverklaringen.
 
 
 ## Gebruiker politieke groepering logt voor de eerste keer in (zee)
@@ -35,9 +35,7 @@ __Hoofdscenario:__
 
 __Niveau:__ Gebruikersdoel, zee, 🌊
 
-__Pre-condities:__
 
-- De gebruiker is ingelogd in de applicatie.
 
 ### Hoofdscenario en uitbreidingen
 
@@ -57,10 +55,6 @@ __Hoofdscenario:__
 
 __Niveau:__ Gebruikersdoel, zee, 🌊
 
-__Pre-condities:__
-
-- De lijstinleveraar is ingelogd in de applicatie.
-
 ### Hoofdscenario en uitbreidingen
 
 __Hoofdscenario:__
@@ -70,27 +64,22 @@ __Hoofdscenario:__
 
 ## Politieke groepering maakt de kandidatenlijsten (zee) 
 
-*Nog te bespreken met Marlon en Grietje*
-
 __Niveau:__ Gebruikersdoel, zee, 🌊
 
 __Hoofdscenario:__
 
-1. Politieke groepering selecteert dat ze meedoen met één lijst voor alle gebieden*
-2. Politieke groepering vult de lijst met de eerder ingevulde personenset
-3. Politieke groepering zet de kandidaten in de goede volgorde
+1. Politieke groepering maakt een lijst aan
+2. Politieke groepering vinkt aan voor welke gebieden de lijst geldig is
+3. Politieke groepering vult de lijst door personen toe te voegen
+4. Politieke groepering geeft aan dat de lijst klaar is
 
+Optioneel vervolg: door naar stap 1
 
 __Uitbreidingen__:
-1a. Politieke groepering doet mee met meerdere lijsten
-&emsp; 1a1. Politieke groepering selecteert gebied(en) waar de lijst geldig is
-2a. Politieke groepering voegt een kandidaat toe die nog niet in de personenset staat
-4. Politieke groepering doet mee met meerdere lijsten
-&emsp; 4a1. Politieke groepering selecteerd nieuwe gebieden waar de lijst geldig is
-&emsp; 4a2. Politieke groepering selecteert een lijst die als basis dient 
-&emsp; &emsp; 4a2a. Politieke groepering vult de lijst vanaf 0 met de ingevulde personenset
-&emsp; &emsp; 4a2b. Politieke groepering zet de kandidaten in de goede volgorde
-&emsp; 4a3. Politieke groepering pas de lijst aan door kandidaten en de volgorde te wijzigen
+
+
+- 1a. Politieke groepering selecteert een bestaande lijst als sjabloon
+- 3a. Poltieke groepering vult de lijst en past de volgorde van de kandidaten aan
 
 ## Politieke groepering machtigt de lijstinleveraar (zee)
 
