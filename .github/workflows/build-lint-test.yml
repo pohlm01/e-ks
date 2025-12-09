@@ -16,6 +16,15 @@ env:
 
 
 jobs:
+  newline:
+    name: Check every file has a newline at the end
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check newline
+        shell: bash
+        run: ./.github/workflows/check_newline.sh
+
   format:
     name: Rust format
     runs-on: ubuntu-latest
