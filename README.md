@@ -2,9 +2,9 @@
 
 # e-KS
 
-Om te kunnen deelnemen aan een verkiezing moet een politieke groepering aangeven met welke kandidaten ze mee wil doen. Hiervoor moeten ze verschillende documenten inleveren bij het centraal stembureau. Het betreft ondersteuningsverklaringen en instemmingsverklaringen. Dit heet de kandidaatstellingsprocedure.
+Om te kunnen deelnemen aan een verkiezing moet een politieke groepering aangeven met welke kandidaten ze mee wil doen. Hiervoor moeten ze verschillende documenten inleveren bij het centraal stembureau. Dit heet de kandidaatstellingsprocedure.
 
-e-KS staat voor het elektronisch kandidaatstellingssysteem: een webapplicatie waarmee de Kiesraad de huidige kandidaatstellingsprocedure op een eerlijke, transparante en controleerbare manier wil moderniseren. Het nieuwe systeem zal op termijn de huidige ondersteunende software (OSV2020-PP en OSV2020-KS) vervangen.
+e-KS staat voor het elektronisch Kandidaatstellingssysteem: een webapplicatie waarmee de Kiesraad de huidige kandidaatstellingsprocedure op een eerlijke, transparante en controleerbare manier wil moderniseren. Het nieuwe systeem zal op termijn de huidige ondersteunende software (OSV2020-PP en OSV2020-KS) vervangen.
 
 ## Requirements
 
@@ -12,7 +12,7 @@ De kandidaatstellingsprocedure is verankerd in de [Kieswet](https://wetten.overh
 
 Een overzicht van het huidige proces en e-KS is te lezen in [deze presentatie](https://github.com/user-attachments/files/24053768/e-KS-Proces.pdf).
 
-Belangrijke stukken of [formulieren voor de kandidaatstellingsprocedure](https://www.kiesraad.nl/verkiezingen/europees-parlement/kandidaatstelling/stukken-kandidaatstelling) zijn:
+Belangrijke stukken of [formulieren voor de kandidaatstellingsprocedure](https://www.kiesraad.nl/verkiezingen/eerste-kamer/kandidaatstelling/stukken-kandidaatstelling) zijn:
 
 - [Kandidatenlijst H1](https://www.rijksoverheid.nl/onderwerpen/verkiezingen/documenten/publicaties/2020/12/15/model-h-1-kandidatenlijst)
 - [Instemmingsverklaring H9](https://www.rijksoverheid.nl/onderwerpen/verkiezingen/documenten/publicaties/2020/12/15/model-h-9-instemmingsverklaring)
