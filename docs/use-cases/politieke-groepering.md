@@ -85,7 +85,7 @@ __Niveau:__ Gebruikersdoel, zee, 🌊
 
 *Nog bespreken met Marlon en Grietje*
 
-__Niveau:__ Gebruikersdoel, zee, 🌊
+__Niveau:__ Gebruikersdoel, vlieger, 🪁 
 
 1. Lijstinleveraar geeft BSN's van kandidaten door op de kandidatenlijst
 2. Lijstinleveraar bericht kandidaten dat ze kunnen inloggen op de applicatie
@@ -94,7 +94,7 @@ __Niveau:__ Gebruikersdoel, zee, 🌊
 5. Kandidaat bevestigt dat de gegevens uit de BRP correct zijn
 6. Kandidaat bekijkt de kandidatenlijst
 7. Kandidaat stemt in met de plek op de kandidatenlijst
-8. Op het model H9 komt een vinkje te staan dat de kandidaat heeft ingestemd met DigiD *vraag: bij uitbreiding van 7a, gebeurd 8 niet en bij 3 ook niet, hoe schrijf je dat dan op?*
+8. De applicatie maakt een model H9 aan voor elke kandidaat die heeft ingestemd. Op het model H9 komt een vinkje te staan dat de kandidaat heeft ingestemd met DigiD. 
 
 __Uitbreidingen__:
 
@@ -109,4 +109,4 @@ __Uitbreidingen__:
 
 
 __Open punten__:
-1. Is BSN verplicht? @ Richard
+1. Is BSN verplicht? @Richard
