@@ -1,34 +1,25 @@
 # Roadmap 
 ---
-### Januari t/m mei
-- Deployment architectuur kubernetes yaml 
-- CI/CD pipeline opzetten
-- Kandidatenset (personenlijst)
-- Algemene lijstgegevens verwerken 
+### Januari t/m mei (5 maanden: 11 sprints)
 - DigiD inlog/ E-Herkenning inlog /aansluiten TVS (inclusief inlog buitenland?) 
-- Inloggen BES eilanden 
-- BRP koppeling 
-- Overzichtspagina voor politieke groeperingen 
+- BRP koppeling
 - e-KS test website 
-- Kandidatenlijst opstellen 
-- Kandidatenlijst opstellen per kieskring* 
-- Verschillende configuraties per verkiezing 
-- Kandidatenlijst uitprinten 
-- Instemmingsverklaring afgeven 
-- Instemmingsverklaring uitprinten 
-- Machtingverklaring afgeven
+- Deployment architectuur Standaard Platform 
+- Kandidatenlijst opstellen per kieskring
+- Algemene lijstgegevens verwerken 
+- Overzichtspagina voor politieke groeperingen (de stappen in het proces weergeven)
+- Verkiezingsconfiguratie maken (naam, kieskringen, etc.)
+- Kandidatenlijst uitprinten, instemmingsverklaring uitprinten 
 - Machtingsverklaring uitprinten
-- Blanco lijsten aanmaken
-- Samengestelde lijst
-- Monitoring
 - Audit log
-- Defintieve kandidatenlijst opstellen en uitprinten
-- Voorlopige kandidatenlijst opstellen en uitprinten
-- Definitieve inlevering
-- Infographic na alles uitprinten
-- Export/import functionaliteit kandidaten
+- Defintieve kandidatenlijsten opstellen en uitprinten (model I4)
+- Voorlopige kandidatenlijsten opstellen en uitprinten (model I4)
+- Definitieve inlevering (inclusief vervolgstappenplan voor partij: Infographic)
+- CSV. export/import functionaliteit kandidaten
 
-### Mei t/m oktober
+
+### Mei t/m oktober (5 maanden: 11 sprints)
+- Samengestelde lijst (aanduiding samenvoegen)
 - Betalingsbewijs waarborgsom
 - Overzichtspagina voor CSB's
 - Ondersteuningsverklaringen fase 1
@@ -36,6 +27,8 @@
 - EML (kandidatenlijsten, totaallijst en verkiezingsdefinitie)
 - Verzuimbrieven genereren
 - Design systeem
+- Monitoring
+- Instemmingsverklaring afgeven (nice to have: inlog DigiD)
 - Gebruikersbeheer
 - Goedkeuring door CSB
 - Afkeuren/schrappen door CSB
@@ -58,9 +51,13 @@
 
 
 
+# Change log
 
-
-
+## 10-12-2025 Iris en Marlon
+- CI/CD pipeline opzetten, intiële CI/CD pipeline is klaar, was een dag werk. Er is veel overgenomen van Abacus
+- Inloggen BES eilanden uitzoekissue van maken, we verwachten niet dat het een Epic is
+- Machtingverklaring afgeven, opgenomen in een andere Epic (Algemene lijstgegevens verwerken )
+- Blanco lijsten aanmaken: uitzoek issue van maken
 
 
 
