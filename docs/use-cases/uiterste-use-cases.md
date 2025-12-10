@@ -52,7 +52,7 @@ __Niveau:__ Hoog-over, wolk, ☁️
 __Hoofdscenario:__
 
 1. Centraal Stembureau ontvangt stukken politieke groepering
-2. Centraal Stembureau stelt vast dat alle stukken volledig en correct zijn
+2. Centraal Stembureau stelt vast dat alle stukken voor een zittende partij ingeleverd en correct zijn
 3. Centraal Stembureau informeert de partij dat stukken goed en volledig zijn
 4. Centraal Stembureau geeft de stukken weer terug aan de partij
 
@@ -62,6 +62,9 @@ __Uitbreiding__:
 &emsp; 2a1. Centraal Stembureau informeert dat de stukken niet volledig en/of correct zijn  
 &emsp; 2a2. Centraal Stembureau geeft aan welke stukken ontbreken en/of niet correct zijn    
 &emsp; 2a3. Centraal Stembureau geeft de stukken weer terug aan de partij  
+
+2b. Partij is een niet-zittende partij  
+&emsp; Centraal Stembureau voert extra controles voor een niet-zittende partij uit
 
 ## Centraal stembureau controleert politieke groeperingen en kandidaten (Dag van kandidaatstelling)
 
