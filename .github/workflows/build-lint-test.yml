@@ -1,0 +1,127 @@
+name: Build, lint & test
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  TZ: "Europe/Amsterdam"
+
+
+jobs:
+  newline:
+    name: Check every file has a newline at the end
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check newline
+        shell: bash
+        run: ./.github/workflows/check_newline.sh
+
+  format:
+    name: Rust format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup Rust
+        shell: bash
+        run: >
+          rustup update nightly &&
+          rustup default nightly &&
+          rustup component add --toolchain nightly rustfmt
+
+      - name: Check rustfmt
+        run: cargo --locked fmt --all -- --check
+
+  rust:
+    name: clippy, test & build
+    runs-on: ubuntu-latest
+    env:
+      CARGO_TERM_COLOR: always
+      SQLX_OFFLINE: "true"
+      RUSTDOCFLAGS: "-D warnings"
+    steps:
+      - uses: actions/checkout@v6
+      # Compile and test
+      - name: Install musl
+        run: sudo apt-get update && sudo apt-get install -y musl-tools
+      - name: Setup Rust
+        shell: bash
+        run: >
+          rustup update stable &&
+          rustup default stable &&
+          rustup target add x86_64-unknown-linux-musl &&
+          rustup component add --toolchain stable clippy rust-docs
+      - name: Cargo cache
+        uses: Swatinem/rust-cache@f13886b937689c021905a6b90929199931d60db1 # v2
+        with:
+          workspaces: ". -> target"
+      - name: Check Clippy with all features
+        run: cargo --locked clippy --target=x86_64-unknown-linux-musl --all-targets --all-features -- -D warnings
+      - name: Check Clippy without default features
+        run: cargo --locked clippy --target=x86_64-unknown-linux-musl --all-targets --no-default-features -- -D warnings
+      - name: Run tests
+        run: cargo --locked test --target=x86_64-unknown-linux-musl -- --nocapture
+      - name: Build docs
+        run: cargo doc --workspace --no-deps --all-features
+      - name: Build
+        run: cargo --locked build --target=x86_64-unknown-linux-musl
+      - uses: actions/upload-artifact@v5
+        with:
+          name: e-ks
+          path: target/x86_64-unknown-linux-musl/debug/e-ks
+
+  pdf-gen:
+    name: PDF generator clippy, test & build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./pdf-gen
+    env:
+      CARGO_TERM_COLOR: always
+      RUSTDOCFLAGS: "-D warnings"
+    steps:
+      - uses: actions/checkout@v6
+      # Compile and test
+      - name: Install musl
+        run: sudo apt-get update && sudo apt-get install -y musl-tools
+      - name: Setup Rust
+        shell: bash
+        run: >
+          rustup update stable &&
+          rustup default stable &&
+          rustup target add x86_64-unknown-linux-musl &&
+          rustup component add --toolchain stable clippy
+      - name: Cargo cache
+        uses: Swatinem/rust-cache@f13886b937689c021905a6b90929199931d60db1 # v2
+        with:
+          workspaces: "pdf-gen -> target"
+      - name: Check Clippy with all features
+        run: cargo --locked clippy --target=x86_64-unknown-linux-musl --all-targets --all-features -- -D warnings
+      - name: Check Clippy without default features
+        run: cargo --locked clippy --target=x86_64-unknown-linux-musl --all-targets --no-default-features -- -D warnings
+      - name: Run tests
+        run: cargo --locked test --target=x86_64-unknown-linux-musl -- --nocapture
+      - name: Build
+        run: cargo --locked build --target=x86_64-unknown-linux-musl
+      - uses: actions/upload-artifact@v5
+        with:
+          name: pdf-gen
+          path: target/x86_64-unknown-linux-musl/debug/pdf-gen
+
+  audit-dependencies:
+    name: Audit dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - uses: EmbarkStudios/cargo-deny-action@f2ba7abc2abebaf185c833c3961145a3c275caad
+        with:
+          arguments: --workspace --all-features
