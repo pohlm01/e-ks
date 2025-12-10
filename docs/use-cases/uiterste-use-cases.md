@@ -9,8 +9,8 @@ __Niveau:__ Hoog-over, wolk, ☁️
 __Hoofdscenario:__
 
 1. Politieke groepering stelt een lijst samen.
-2. Politieke groepering verzamelt ondersteuningsverklaringen.
-3. [Politieke groepering maakt de set benodigde documenten.](./politieke-groepering.md#politieke-groepering-maakt-de-set-benodigde-documenten-vlieger)
+2. [Politieke groepering maakt de set benodigde documenten.](./politieke-groepering.md#politieke-groepering-maakt-de-set-benodigde-documenten-vlieger)
+3. Politieke groepering verzamelt ondersteuningsverklaringen.
 4. Politieke groepering levert de set van benodigde documenten in bij Centraal Stembureau tijdens de voorinlevering.
 5. Politieke groepering ontvangt van Centraal Stembureau bericht dat alles in orde is.
 6. Politieke groepering levert op dag van kandidaatstelling de set van benodigde documenten opnieuw in.
@@ -41,7 +41,47 @@ __Uitbreidingen__:
 
 ## Ondersteuners ondersteunen
 
-## Centraal stembureau registreert en controleert politieke groeperingen en kandidaten
+## Centraal stembureau registreert politieke groeperingen
+
+## Centraal stembureau controleert politieke groeperingen en kandidaten (Voorinlevering)
+
+__Niveau:__ Hoog-over, wolk, ☁️
+
+### Hoofdscenario en uitbreidingen
+
+__Hoofdscenario:__
+
+1. Centraal Stembureau ontvangt stukken politieke groepering
+2. Centraal Stembureau stelt vast dat alle stukken volledig en correct zijn
+3. Centraal Stembureau informeert de partij dat stukken goed en volledig zijn
+4. Centraal Stembureau geeft de stukken weer terug aan de partij
+
+__Uitbreiding__:
+
+2a. Centraal Stembureau stelt vast dat de stukken niet volledig en/of correct zijn  
+&emsp; 2a1. Centraal Stembureau informeert dat de stukken niet volledig en/of correct zijn  
+&emsp; 2a2. Centraal Stembureau geeft aan welke stukken ontbreken en/of niet correct zijn    
+&emsp; 2a3. Centraal Stembureau geeft de stukken weer terug aan de partij  
+
+## Centraal stembureau controleert politieke groeperingen en kandidaten (Dag van kandidaatstelling)
+
+__Niveau:__ Hoog-over, wolk, ☁️
+
+### Hoofdscenario en uitbreidingen
+
+__Hoofdscenario:__
+
+1. Centraal Stembureau ontvangt stukken politieke groepering
+
+## Centraal stembureau controleert politieke groeperingen en kandidaten (Na herstel verzuimen)
+
+__Niveau:__ Hoog-over, wolk, ☁️
+
+### Hoofdscenario en uitbreidingen
+
+__Hoofdscenario:__
+
+1. Centraal Stembureau ontvangt stukken politieke groepering
 
 ## Kiesraad ondersteunt kandidaatstelling
 
