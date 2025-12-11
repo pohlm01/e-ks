@@ -32,7 +32,7 @@ Deze termen zijn allemaal te vinden op <https://english.kiesraad.nl/>.
 | Eerste Kamerverkiezing          | EK        | election of the Senate                    |                                     |
 | gemeenteraadsverkiezingen       | GR        | elections of the municipal council        |                                     |
 | provinciale statenverkiezingen  | PS        | elections of the provincial council       |                                     |
-| waterschapsverkiezingen         | WS        | elections of the Water authority          | AB in EML_NL                        |
+| waterschapsverkiezingen         | WS        | elections of the water authority          | AB in EML_NL                        |
 | Europees Parlementsverkiezing   | EP        | election of the European Parliament       |                                     |
 | kiescolleges Eerste Kamer       |           | electoral colleges for the Senate         |                                     |
 | Eilandsraadsverkiezingen        |           | elections of the Island Councils          | ER in EML_NL                        |
