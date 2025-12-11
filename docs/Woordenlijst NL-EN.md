@@ -25,56 +25,56 @@ We gebruiken deze termen onder andere voor variabelen, functienamen en teksten i
 
 Deze termen zijn allemaal te vinden op <https://english.kiesraad.nl/>.
 
-| Nederlands                             | Afkorting | Engels                                    | Opmerkingen                         |
-|----------------------------------------|-----------|-------------------------------------------|-------------------------------------|
-| verkiezing                             |           | election                                  |                                     |
-| Tweede Kamerverkiezing                 | TK        | election of the House of Representatives  | ook *election(s) to* wordt gebruikt |
-| Eerste Kamerverkiezing                 | EK        | election of the Senate                    |                                     |
-| gemeenteraadsverkiezingen              | GR        | elections of the municipal council        |                                     |
-| provinciale statenverkiezingen         | PS        | elections of the provincial council       |                                     |
-| waterschapsverkiezingen                | WS        | elections of the Water authority          | AB in EML_NL                        |
-| Europees Parlementsverkiezing          | EP        | election of the European Parliament       |                                     |
-| kiescolleges Eerste Kamer              |           | electoral colleges for the Senate         |                                     |
-| Eilandsraadsverkiezingen               |           | elections of the Island Councils          | ER in EML_NL                        |
-| herindelingsverkiezingen               | GRh       | redivision elections                      | GR in EML_NL                        |
+| Nederlands                      | Afkorting | Engels                                    | Opmerkingen                         |
+|---------------------------------|-----------|-------------------------------------------|-------------------------------------|
+| verkiezing                      |           | election                                  |                                     |
+| Tweede Kamerverkiezing          | TK        | election of the House of Representatives  | ook *election(s) to* wordt gebruikt |
+| Eerste Kamerverkiezing          | EK        | election of the Senate                    |                                     |
+| gemeenteraadsverkiezingen       | GR        | elections of the municipal council        |                                     |
+| provinciale statenverkiezingen  | PS        | elections of the provincial council       |                                     |
+| waterschapsverkiezingen         | WS        | elections of the Water authority          | AB in EML_NL                        |
+| Europees Parlementsverkiezing   | EP        | election of the European Parliament       |                                     |
+| kiescolleges Eerste Kamer       |           | electoral colleges for the Senate         |                                     |
+| Eilandsraadsverkiezingen        |           | elections of the Island Councils          | ER in EML_NL                        |
+| herindelingsverkiezingen        | GRh       | redivision elections                      | GR in EML_NL                        |
 
 
 
 
 ## Rollen / partijen / entiteiten
 
-| Nederlands              | Afkorting | Engels                               | Opmerkingen                                           |
-|-------------------------|-----------|--------------------------------------|-------------------------------------------------------|
-| politieke partij        |           | political party                      |                                                       |
-| politieke groepering    |           | political group                      |                                                       |
-| lijst                   |           | list                                 |                                                       |
-| blanco lijst            |           | unnamed list                         |                                                       |
-| gemeente         |           | municipality                       |                                                       |
-| kieskring           |           | electoral district               |                                                       |
-| kandidatenlijst                      |           | list of candidates        |                                                             |
-| kandidaat                            |           | candidate                 |                                                             |
-| centraal stembureau                        | CSB          | central electoral committee               |                                     |
-| college van burgemeester en wethouders | B&W       | municipal executive of mayor and aldermen |                                     |
+| Nederlands                                               | Afkorting | Engels                                       | Opmerkingen |
+|----------------------------------------------------------|-----------|----------------------------------------------|-------------|
+| politieke partij                                         |           | political party                              |             |
+| politieke groepering                                     |           | political group                              |             |
+| lijst                                                    |           | list                                         |             |
+| blanco lijst                                             |           | unnamed list                                 |             |
+| gemeente                                                 |           | municipality                                 |             |
+| kieskring                                                |           | electoral district                           |             |
+| kandidatenlijst                                          |           | list of candidates                           |             |
+| kandidaat                                                |           | candidate                                    |             |
+| centraal stembureau                                      | CSB       | central electoral committee                  |             |
+| college van burgemeester en wethouders                   | B&W       | municipal executive of mayor and aldermen    |             |
+| ministerie van Binnenlandse Zaken en Koninkrijksrelaties | BZK       | ministry for Interior and Kingdom Relations  |             |
 
 ## Kandidaatstelling
 
-| Nederlands              | Afkorting | Engels                               | Opmerkingen                                           |
-|-------------------------|-----------|--------------------------------------|-------------------------------------------------------|
-| ondersteuningsverklaring        |           | declaration of support                      |                                                       |
-| verzuim        |           | omission                      |                                                       |
-| herstel verzuim        |           | rectify omission                      |                                                       |
-| dag van kandidaatstelling        |           | nomination day                      |                                                       |
-| aanduiding        |           | appelation                      |                                                       |
-| waarborgsom        |           | deposit                      |                                                       |
-| betalingsbewijs        |           | proof of payment                      |                                                       |
-| gemachtigde        |           | authorised agent                      |                                                       |
-| plaatsvervangend gemachtigde        |           | deputy agent                      |                                                       |
-| kamer van koophandel                        | KvK          | chamber of commerce               |                                     |
-| instemmingverklaring                       |          | declaration of consent               |                                     |
-| gemeenteambtenaar                                                          |                                                 |    municipal official                                                                  |
-| bij loting vaststellen                                             |                                                  |   to determine by lot                                                                   |
-| Binnenlandse Zaken en Koninkrijksrelaties                          |   BZK                   |   The ministry for Interior and Kingdom Relations                                                                   |
-| een lijst indienen                                                 |                                                     |  to submit a list                                                                    |
+| Nederlands                     | Afkorting | Engels                 | Opmerkingen | 
+|--------------------------------|-----------|------------------------|-------------|
+| ondersteuningsverklaring       |           | declaration of support |             |
+| verzuim                        |           | omission               |             |
+| herstel verzuim                |           | rectify omission       |             |
+| dag van kandidaatstelling      |           | nomination day         |             |
+| aanduiding                     |           | appellation            |             |
+| waarborgsom                    |           | deposit                |             |
+| betalingsbewijs                |           | proof of payment       |             |
+| gemachtigde                    |           | authorised agent       |             |
+| plaatsvervangend gemachtigde   |           | deputy agent           |             |
+| kamer van koophandel           | KvK       | chamber of commerce    |             |
+| instemmingsverklaring          |           | declaration of consent |             |
+| gemeenteambtenaar              |           | municipal official     |             |
+| bij loting vaststellen         |           | to determine by lot    |             |
+| een lijst indienen             |           | to submit a list       |             |
 
 
 
