@@ -70,7 +70,7 @@ Deze termen zijn allemaal te vinden op <https://english.kiesraad.nl/>.
 | betalingsbewijs                |           | proof of payment       |             |
 | gemachtigde                    |           | authorised agent       |             |
 | plaatsvervangend gemachtigde   |           | deputy agent           |             |
-| kamer van koophandel           | KvK       | chamber of commerce    |             |
+| Kamer van Koophandel           | KVK       | Chamber of Commerce    |             |
 | instemmingsverklaring          |           | declaration of consent |             |
 | gemeenteambtenaar              |           | municipal official     |             |
 | bij loting vaststellen         |           | to determine by lot    |             |
