@@ -20,7 +20,7 @@ __Hoofdscenario:__
 
 __Uitbreidingen__:
 
-5a. [Politieke groepering ontvangt bericht met te maken wijzigingen van Centraal Stembureau](./politieke-groepering.md#politieke-groepering-ontvangt-bericht-met-te-maken-wijzigingen-van-centraal-stembureau)
+5a. [Politieke groepering ontvangt bericht met te maken wijzigingen van Centraal Stembureau](./politieke-groepering.md#politieke-groepering-ontvangt-bericht-met-te-maken-wijzigingen-van-centraal-stembureau-zee)  
 &emsp; 5a1. Politieke groepering corrigeert de set van documenten.  
 &emsp; 5a2. Politieke groepering levert de set van documenten opnieuw in.  
 &emsp; Vervolg: ofwel 5 ofwel 5a.
