@@ -124,11 +124,12 @@ __Hoofdscenario:__
 5. De applicatie genereert de benodigde documenten. (LINK naar pagina met alle benodigden documenten per verkiezing)
 6. De lijstinleveraar downloadt de benodigde documenten in pdf.
 7. De lijstinleveraar print de benodigde documenten uit.
+8. Het centraal stembureau ontvangt de gegevens (via de applicatie).
 
 __Uitbreidingen__:
 
 - 1a. er ontbreken kandidaten  
-  - 1a1. De lijstinleveraar vult de missende kandidaten in  
+  - 1a1. De lijstinleveraar vult de missende kandidaten in
 - 1b. er staan kandidaten op die niet op de lijst horen  
   - 1b1. De lijstinleveraar verwijdert kandidaten
 - 1c. gegevens kloppen niet
@@ -142,9 +143,11 @@ __Uitbreidingen__:
 - 4a. gegevens kloppen niet
   - 4a1. de applicatie geeft een (blocking) waarschuwing
   - 4a2. De lijstinleveraar corrigeert de gegevens
+    - 4a2a. De lijstinleveraar corrigeert de gegevens niet 
 - 4b. gegevens zijn niet volledig
   - 4b1. de applicatie geeft een (blocking) waarschuwing
   - 4b2. De lijstinleveraar vult de gegevens aan
+    - 4b2b. De lijstinleveraar vult de gegevens niet aan
  
 - 8a. er zijn na het printen toch fouten
   - 8a1. De lijstinleveraar geeft in de applicatie aan dat er fouten zijn.
@@ -153,3 +156,15 @@ __Uitbreidingen__:
 
 __Opmerkingen__:
 - stappen 1 t/m 3 kan de partij herhalen als ze meerdere lijsten inleveren
+
+
+## Politieke groepering ontvangt bericht met te maken wijzigingen van Centraal Stembureau:
+
+__Niveau:__ Gebruikersdoel, zee, 🌊
+
+__Hoofdscenario:__
+
+1. Politieke groepering ontvangt schriftelijk de te maken wijzigingen.
+2. Politieke groepering stelt vast dat de schriftelijke te maken wijzigingen ook in de applicatie staan. **@Richard: papier is leidend.**
+3. Politieke groepering corrigeert de fouten
+4. Vervolg zie: [De lijstinleveraar stelt vast alle gegevens volledig zijn en downloadt en print alle benodigde documenten. (zee)]((#de-lijstinleveraar-stelt-vast-alle-gegevens-volledig-zijn-en-downloadt-en-print-alle-benodigde-documenten-zee))
