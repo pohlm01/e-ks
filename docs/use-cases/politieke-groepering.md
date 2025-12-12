@@ -158,7 +158,7 @@ __Opmerkingen__:
 - stappen 1 t/m 3 kan de partij herhalen als ze meerdere lijsten inleveren
 
 
-## Politieke groepering ontvangt bericht met te maken wijzigingen van Centraal Stembureau:
+## Politieke groepering ontvangt bericht met te maken wijzigingen van Centraal Stembureau (Zee)
 
 __Niveau:__ Gebruikersdoel, zee, 🌊
 
