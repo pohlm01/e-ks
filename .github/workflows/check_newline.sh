@@ -2,13 +2,13 @@
 
 ERRORS=0
 
-for f in $(git grep -Il '')
+while IFS= read -r -d '' f
 do
   if [[ $(tail -c 1 "$f") ]]; then
     echo "$f"
     ERRORS=1
   fi
-done
+done < <(git grep -Il -z '')
 
 if [ $ERRORS -eq 1 ]; then
   echo "Files above have no newline at the end."
