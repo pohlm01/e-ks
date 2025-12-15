@@ -18,4 +18,5 @@ There are two levels of the definition of ready (DoR):
 - Discussed and clear for the dev team
 - Acceptance criteria are described
 - Time estimate is provided
+- Design is finalised
 - Most important testcases are provided
