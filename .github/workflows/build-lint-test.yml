@@ -20,7 +20,7 @@ jobs:
     name: Check every file has a newline at the end
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.1
       - name: Check newline
         shell: bash
         run: ./.github/workflows/check_newline.sh
@@ -29,7 +29,7 @@ jobs:
     name: Rust format
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.1
       - name: Setup Rust
         shell: bash
         run: >
@@ -48,7 +48,7 @@ jobs:
       SQLX_OFFLINE: "true"
       RUSTDOCFLAGS: "-D warnings"
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.1
       # Compile and test
       - name: Install musl
         run: sudo apt-get update && sudo apt-get install -y musl-tools
@@ -60,7 +60,7 @@ jobs:
           rustup target add x86_64-unknown-linux-musl &&
           rustup component add --toolchain stable clippy rust-docs
       - name: Cargo cache
-        uses: Swatinem/rust-cache@f13886b937689c021905a6b90929199931d60db1 # v2
+        uses: Swatinem/rust-cache@779680da715d629ac1d338a641029a2f4372abb5 # v2
         with:
           workspaces: ". -> target"
       - name: Check Clippy with all features
@@ -88,7 +88,7 @@ jobs:
       CARGO_TERM_COLOR: always
       RUSTDOCFLAGS: "-D warnings"
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.1
       # Compile and test
       - name: Install musl
         run: sudo apt-get update && sudo apt-get install -y musl-tools
@@ -100,7 +100,7 @@ jobs:
           rustup target add x86_64-unknown-linux-musl &&
           rustup component add --toolchain stable clippy
       - name: Cargo cache
-        uses: Swatinem/rust-cache@f13886b937689c021905a6b90929199931d60db1 # v2
+        uses: Swatinem/rust-cache@779680da715d629ac1d338a641029a2f4372abb5 # v2
         with:
           workspaces: "pdf-gen -> target"
       - name: Check Clippy with all features
@@ -120,8 +120,8 @@ jobs:
     name: Audit dependencies
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
-      - uses: EmbarkStudios/cargo-deny-action@f2ba7abc2abebaf185c833c3961145a3c275caad
+      - uses: EmbarkStudios/cargo-deny-action@76cd80eb775d7bbbd2d80292136d74d39e1b4918
         with:
           arguments: --workspace --all-features
