@@ -1,4 +1,4 @@
-#### Defintion of Ready
+# Definition of Ready
 
 There are two levels of the definition of ready (DoR): 
 
