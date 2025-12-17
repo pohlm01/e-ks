@@ -174,9 +174,12 @@ __Hoofdscenario:__
 
 ## De politieke groepering kiest ervoor om de lijst samen in te leveren
 
+__Niveau:__ Gebruikersdoel, zee, 🌊
+
+__Hoofdscenario:__
+
 1. De politieke groepering geeft aan dat ze meedoen met een samengevoegde aanduiding
 2. De politieke groepering geeft aan met welke andere aanduidingen ze meedoen
 3. De applicatie zorgt ervoor dat als de andere aanduidingen inloggen, ze ook de gegevens kunnen inzien. *hier moeten we nog even over nadenken, que security is dit natuurlijk niet top*
 4. De politieke groepering vult de aanduiding in, deze is max 35 leestekens*.
 
-*Toelichting: De Kieswet spreekt enkel over ‘35 letters of andere tekens' zonder nadere toelichting. Daarom heeft de Kiesraad een beleidsregel vastgesteld, om zelf meer duiding te geven aan de bepaling. Die is hier te vinden: [Staatscourant 2008, 54 pag. 9 | Overheid.nl > Officiële bekendmakingen](https://zoek.officielebekendmakingen.nl/stcrt-2008-54-p9-SC85021.html). Uit de toelichting blijkt dat tekens die in ieder geval zijn toegestaan en niet worden meegeteld leestekens, verbindingsstreepjes, haakjes en spaties zijn. Cijfers zijn toegestaan, maar worden wel meegeteld. Wat betreft andere tekens, die zijn niet genoemd, wat betekent dat er momenteel geen vaststaand oordeel is. Dat zal dus moeten worden beoordeeld als een verzoek met deze tekens wordt ingediend. Dit is een juridisch oordeel dat buiten de programmatuur plaatsvindt. Dat betekent niet dat de programmatuur deze tekens bij voorbaat niet hoort toe te staan.
