@@ -5,8 +5,14 @@ and a postgres database. To following explains the required installation steps.
 
 ## Traefik ingress controller
 
+> [!CAUTION]
+> Change the password for the http basic auth to a secure password
+
 ```shell
 helm upgrade --install traefik oci://ghcr.io/traefik/helm/traefik -n ingress --create-namespace -f traefik-values.yaml
+
+kubectl create secret generic --type='kubernetes.io/basic-auth' --from-literal=username=eks --from-literal=password=topsecret -n ingress http-basic-auth
+kubectl apply -f traefik-middleware.yaml
 ```
 
 ## Cert manager

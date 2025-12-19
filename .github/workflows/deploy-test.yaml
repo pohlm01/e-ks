@@ -3,8 +3,6 @@ run-name: 'Deploy "${{ github.ref_name }}" to test environment'
 
 on:
   workflow_dispatch:
-  # TODO remove 'on push'
-  push:
 
 permissions:
   packages: write
