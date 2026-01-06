@@ -1,4 +1,4 @@
-# Use cases Politieke groepering
+# Use cases politieke groepering - kandidaatstelling
 
 ## Politieke groepering maakt de set benodigde documenten (vlieger)
 
@@ -84,9 +84,7 @@ __Niveau:__ Gebruikersdoel, zee, 🌊
 
 **afhankelijk van e-Herkenning**
 
-## Kandidaten geven instemming met hun plek op de lijst (zee)
-
-*Nog bespreken met Marlon en Grietje*
+## Kandidaten geven instemming met hun plek op de lijst (zee) - Nice to have (Fase 2)
 
 __Niveau:__ Gebruikersdoel, vlieger, 🪁 
 
