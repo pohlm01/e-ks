@@ -15,13 +15,31 @@ kubectl create secret generic --type='kubernetes.io/basic-auth' --from-literal=u
 kubectl apply -f traefik-middleware.yaml
 ```
 
+## Scaleway cert manager webhook (for wildcard certificates)
+
+Create new credentials in the [Scaleway console](https://console.scaleway.com/credentials/credentials) with just DNS write permissions and fill them in below.
+
+```shell
+helm repo add scaleway https://helm.scw.cloud/
+helm repo update
+helm upgrade --install --namespace cert-manager scaleway-certmanager-webhook scaleway/scaleway-certmanager-webhook \
+  --set secret.accessKey=<YOUR-ACCESS-KEY> \
+  --set secret.secretKey=<YOUR-SECRET_KEY>
+```
+
 ## Cert manager
+
 ```shell
 helm upgrade --install cert-manager oci://quay.io/jetstack/charts/cert-manager -n cert-manager --create-namespace -f cert-manager-values.yaml
 kubectl apply -f cert-issuers.yaml
+
+# Use wildcard certificate for *.eks-test.nl as default certificate
+kubectl apply -f ingress-cert.yaml
+kubectl apply -f traefik-tlsstore.yaml
 ```
 
 ## Postgres
+
 > [!CAUTION]
 > Change the password for the superuser to a secure password
 
@@ -32,8 +50,10 @@ helm upgrade --install postgresql \
   --set auth.postgresPassword="supersecurepassword"
 ```
 
-
 ## Docker pull secret
+
 To avoid rate limits by GitHub, we must authenticate when pulling docker images from the GitHub container registry.
-For that, first create a [personal access token](https://github.com/settings/tokens/new) in GitHub with scope `read:packages`.
-Then, you need to place this into the GitHub environment as `IMAGE_PULL_SECRET_USERNAME` variable and `IMAGE_PULL_SECRET_TOKEN` secret.
+For that, first create a [personal access token](https://github.com/settings/tokens/new) in GitHub with scope
+`read:packages`.
+Then, you need to place this into the GitHub environment as `IMAGE_PULL_SECRET_USERNAME` variable and
+`IMAGE_PULL_SECRET_TOKEN` secret.
