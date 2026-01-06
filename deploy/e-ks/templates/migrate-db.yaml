@@ -24,7 +24,7 @@ spec:
         - name: regcred
       containers:
         - name: migrate-db
-          image: "ghcr.io/kiesraad/e-ks/migrate_db:{{ .Chart.AppVersion }}"
+          image: "ghcr.io/kiesraad/e-ks/apply_fixtures:{{ .Chart.AppVersion }}"
           env:
             - name: DATABASE_URL
               valueFrom:

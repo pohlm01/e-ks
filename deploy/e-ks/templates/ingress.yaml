@@ -3,8 +3,6 @@ kind: IngressRoute
 metadata:
   name: eks
   namespace: {{ .Release.Namespace }}
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-staging-http
 spec:
   entryPoints:
     - websecure
@@ -16,6 +14,14 @@ spec:
           namespace: ingress
       services:
         - name: eks
+          port: http
+    - match: Host(`{{ include "fullHostname" . }}`) && (PathPrefix(`/lookup`) || PathPrefix(`/suggest`))
+      kind: Rule
+      middlewares:
+        - name: test-auth
+          namespace: ingress
+      services:
+        - name: bag-lookup
           port: http
   tls:
     secretName: eks-tls-cert

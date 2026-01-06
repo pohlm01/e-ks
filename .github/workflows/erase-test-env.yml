@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   canonical-name:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       branch-name: ${{ steps.branch-name.outputs.branch-name }}
     steps:
@@ -31,7 +31,7 @@ jobs:
 
   helm-uninstall:
     name: Helm uninstall
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: canonical-name
     env:
       KUBECONFIG: ${{ github.workspace }}/kubeconfig
@@ -50,7 +50,7 @@ jobs:
 
   delete-gh-deployment:
     name: Delete GitHub deployments
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [ canonical-name, helm-uninstall ]
     steps:
       - name: Deactivate and Delete Deployments
