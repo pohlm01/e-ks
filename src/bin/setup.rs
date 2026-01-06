@@ -19,6 +19,19 @@ async fn main() -> Result<()> {
         .await
         .context("create tools directory")?;
 
+    // if an srgument is passed, only install that tool
+    let args: Vec<String> = std::env::args().collect();
+    if args.len() == 2 {
+        let tool_name = &args[1];
+        if let Some(tool) = config.tools.iter().find(|t| &t.name == tool_name) {
+            tool.verify_installed(&platform, tools_dir).await?;
+
+            return Ok(());
+        } else {
+            anyhow::bail!("unknown tool: {}", tool_name);
+        }
+    }
+
     for tool in config.tools {
         tool.verify_installed(&platform, tools_dir).await?;
     }
