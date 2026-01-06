@@ -6,7 +6,7 @@ use axum::{Router, routing::get};
 #[cfg(feature = "http-logging")]
 use tower_http::trace::{DefaultMakeSpan, DefaultOnResponse, TraceLayer};
 
-use crate::{AppState, candidate_lists, common::proxy::proxy_handler, pages, persons};
+use crate::{AppState, candidate_lists, pages, persons};
 
 pub fn create() -> Router<AppState> {
     let router = Router::new()
@@ -17,8 +17,14 @@ pub fn create() -> Router<AppState> {
 
     #[cfg(feature = "dev-features")]
     let router = router
-        .route("/lookup", proxy_handler("http://localhost:8080"))
-        .route("/suggest", proxy_handler("http://localhost:8080"));
+        .route(
+            "/lookup",
+            crate::common::proxy::proxy_handler("http://localhost:8080"),
+        )
+        .route(
+            "/suggest",
+            crate::common::proxy::proxy_handler("http://localhost:8080"),
+        );
 
     #[cfg(feature = "http-logging")]
     let router = router.layer(
@@ -39,7 +45,7 @@ pub fn create() -> Router<AppState> {
     #[cfg(not(feature = "memory-serve"))]
     let router = router.nest(
         "/static",
-        Router::new().fallback(proxy_handler("http://localhost:8888")),
+        Router::new().fallback(crate::common::proxy::proxy_handler("http://localhost:8888")),
     );
 
     router

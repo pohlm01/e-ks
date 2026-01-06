@@ -5,7 +5,6 @@ pub mod election;
 pub mod filters;
 pub mod locale;
 pub mod logging;
-pub mod proxy;
 pub mod router;
 pub mod server;
 pub mod state;
@@ -14,6 +13,8 @@ pub mod translate;
 
 #[cfg(feature = "livereload")]
 pub mod livereload;
+#[cfg(any(feature = "dev-features", not(feature = "memory-serve")))]
+pub mod proxy;
 
 #[cfg(test)]
 pub mod test_utils;

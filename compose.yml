@@ -1,6 +1,6 @@
 services:
   psql:
-    image: ghcr.io/tweedegolf/postgres:17
+    image: ghcr.io/tweedegolf/postgres:18
     environment:
       POSTGRES_USER: eks
       POSTGRES_DB: eks

@@ -14,19 +14,19 @@ USER $user
 FROM final-base AS eks_core
 ARG version=dev
 
-COPY --chown=nonroot:nonroot ./eks_core ./eks_core
+COPY --chown=nonroot:nonroot ./eks ./eks_core
 RUN chmod 700 eks_core
 
 EXPOSE 3000
 ENV VERSION=${version}
 ENTRYPOINT ["./eks_core"]
 
-FROM final-base AS migrate_db
+FROM final-base AS apply_fixtures
 ARG version=dev
 
-COPY --chown=nonroot:nonroot ./migrate_db ./migrate_db
-RUN chmod 700 migrate_db
+COPY --chown=nonroot:nonroot ./fixtures ./apply_fixtures
+RUN chmod 700 apply_fixtures
 
 EXPOSE 3000
 ENV VERSION=${version}
-ENTRYPOINT ["./migrate_db"]
+ENTRYPOINT ["./apply_fixtures"]
