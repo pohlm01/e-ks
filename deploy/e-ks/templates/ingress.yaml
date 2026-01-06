@@ -23,5 +23,5 @@ spec:
       services:
         - name: bag-lookup
           port: http
-  tls:
-    secretName: eks-tls-cert
+  # This falls back to the default certificate, which should be a wildcard cert for *.eks-test.nl
+  tls: {}

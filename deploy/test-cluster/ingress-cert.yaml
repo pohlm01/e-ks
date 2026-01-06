@@ -2,11 +2,11 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: eks-tls-cert
-  namespace: {{ .Release.Namespace }}
+  namespace: ingress
 spec:
   secretName: eks-tls-cert
   issuerRef:
-    name: letsencrypt-production-http
+    name: letsencrypt-production-dns
     kind: ClusterIssuer
   dnsNames:
-    - {{ include "fullHostname" . | quote }}
+    - "*.eks-test.nl"
