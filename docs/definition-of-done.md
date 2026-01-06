@@ -2,6 +2,7 @@
 
 ## DoD PR
 
+- Should be linked to one or more issues (merging the PR resolved the issue(s))
 - Should be assigned (one person should be responsible for maintaining the PR)
 - Unit tests for all added code
 - Rust integration tests for all implemented user flows (tests that do not share code with the main crate)
@@ -12,7 +13,7 @@
     - cargo clippy
     - cargo test
     - Playwright test suite
-    - Newlines at the end of textfiles
+    - Newlines at the end of text files
     - Sigrid
     - Codecov
     - Typescript linting
@@ -31,7 +32,7 @@
 - Playwright integration tests for all implemented user flows
 - PO reviewed and tested all added functionality
 - Internal knowledge sharing is done
-- Testplan has been executed and passed
+- Test plan has been executed and passed
 
 ## DoD sprint release
 
@@ -39,7 +40,7 @@
 - Version number has been bumped
 - Deploy to preview environment
 - Smoke test performed on the preview environment (possibly the integration test suite)
-- The integration testst should have runned on all [target platforms](https://www.communicatierijk.nl/vakkennis/rijkswebsites/aanbevolen-richtlijnen/browsersupport)
+- The integration tests should have run on all [target platforms](https://www.communicatierijk.nl/vakkennis/rijkswebsites/aanbevolen-richtlijnen/browsersupport)
 
 ## DoD major release
 
