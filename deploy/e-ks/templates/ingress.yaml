@@ -10,6 +10,8 @@ spec:
     - match: Host(`{{ include "fullHostname" . }}`)
       kind: Rule
       middlewares:
+        - name: auth-error-redirection
+          namespace: ingress
         - name: test-auth
           namespace: ingress
       services:
@@ -18,6 +20,8 @@ spec:
     - match: Host(`{{ include "fullHostname" . }}`) && (PathPrefix(`/lookup`) || PathPrefix(`/suggest`))
       kind: Rule
       middlewares:
+        - name: auth-error-redirection
+          namespace: ingress
         - name: test-auth
           namespace: ingress
       services:

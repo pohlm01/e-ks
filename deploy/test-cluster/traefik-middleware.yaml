@@ -4,6 +4,19 @@ metadata:
   name: test-auth
   namespace: ingress
 spec:
-  basicAuth:
-    realm: e-ks
-    secret: http-basic-auth
+  forwardAuth:
+    address: http://oauth2-proxy.ingress.svc.cluster.local/oauth2/auth
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: auth-error-redirection
+  namespace: ingress
+spec:
+  errors:
+    status:
+      - "401"
+    query: /oauth2/sign_in?rd={url}
+    service:
+      name: oauth2-proxy
+      port: http

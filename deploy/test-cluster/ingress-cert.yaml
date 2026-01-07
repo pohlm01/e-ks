@@ -9,4 +9,5 @@ spec:
     name: letsencrypt-production-dns
     kind: ClusterIssuer
   dnsNames:
+    - "eks-test.nl"
     - "*.eks-test.nl"
