@@ -1,28 +1,28 @@
 # Roadmap 
 ---
-### Januari t/m mei (5 maanden: 11 sprints)
-- DigiD inlog/ E-Herkenning inlog /aansluiten TVS (inclusief inlog buitenland?) 
-- BRP koppeling
-- e-KS test website 
-- Deployment architectuur Standaard Platform 
-- Kandidatenlijst opstellen per kieskring
-- Algemene lijstgegevens verwerken 
-- Overzichtspagina voor politieke groeperingen (de stappen in het proces weergeven)
-- Verkiezingsconfiguratie maken (naam, kieskringen, etc.)
-- Kandidatenlijst uitprinten, instemmingsverklaring uitprinten 
-- Machtingsverklaring uitprinten
-- Audit log
-- Defintieve kandidatenlijsten opstellen en uitprinten (model I4)
-- Voorlopige kandidatenlijsten opstellen en uitprinten (model I4)
-- Definitieve inlevering (inclusief vervolgstappenplan voor partij: Infographic)
-- CSV. export/import functionaliteit kandidaten
+### Januari t/m oktober
+- DigiD inlog/ E-Herkenning inlog /aansluiten TVS 
+- BRP koppeling 
 
+### Januari t/m mei (5 maanden: 11 sprints)
+- (doorlopend) Deployment architectuur Standaard Platform 
+- (sprint 1) Kandidatenlijst opstellen per kieskring 
+- (sprint 2) Algemene lijstgegevens verwerken 
+- (sprint 3) Personen beheren (adresboek) 
+- (sprint 4) Kandidatenlijst uitprinten, instemmingsverklaring uitprinten 
+- (sprint 5) Machtingsverklaring uitprinten
+- (sprint 6) Verkiezingsconfiguratie maken (naam, kieskringen, datums, etc.)
+- (sprint 7) Audit log & CSV. export/import functionaliteit kandidaten 
+- (sprint 8) Overzichtspagina voor politieke groeperingen (de stappen in het proces weergeven)
+- (sprint 9) Definitieve inlevering (inclusief vervolgstappenplan voor partij: Infographic)
+- (sprint 10) Ondersteuningsverklaringen fase 1
+- (sprint 11) Defintieve kandidatenlijsten opstellen en uitprinten (model I4)
 
 ### Mei t/m oktober (5 maanden: 11 sprints)
+- Voorlopige kandidatenlijsten opstellen en uitprinten (model I1)
 - Samengestelde lijst (aanduiding samenvoegen)
 - Betalingsbewijs waarborgsom
 - Overzichtspagina voor CSB's
-- Ondersteuningsverklaringen fase 1
 - Registratie partijen fase 1
 - EML (kandidatenlijsten, totaallijst en verkiezingsdefinitie)
 - Verzuimbrieven genereren
@@ -37,7 +37,6 @@
 - Gegevens versleutelen
 - Kiesraad dashboard
 
-
 ### Later (niet voor Eerste kamer relevant)
 - Ondersteuningsverklaringen fase 2
 - Registratie partijen fase 2
@@ -48,9 +47,6 @@
 - Meldingen inrichten
 - To do lijst voor politieke partijen
 
-
-
-
 # Change log
 
 ## 10-12-2025 Iris en Marlon
@@ -59,11 +55,7 @@
 - Machtingverklaring afgeven, opgenomen in een andere Epic (Algemene lijstgegevens verwerken )
 - Blanco lijsten aanmaken: uitzoek issue van maken
 
-
-
-
-
-
-
-
-
+## 07-01-2026 Iris en Marlon
+- Nieuw kopje aangemaakt voor "doorlopende" epics
+- Verwijderd: "e-KS test website" al gedaan tijdens sprint 0 / 1
+- Volgorde van epics / sprints aangepast 
