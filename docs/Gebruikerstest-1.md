@@ -7,7 +7,7 @@ vooral bij onderdelen waar we over twijfelen.
 We willen de eerste test uitvoeren met landelijke politieke partijen. Maximaal 5 lijstinleveraars. 45 min per persoon. 
 
 ## Wat kunnen we testen
-De eerste gebruikerstest vind plaats na sprint 2 of na sprint 3. 
+De eerste gebruikerstest vindt plaats na sprint 2 of na sprint 3. 
 Sprint 1: kandidatenlijst aanmaken
 Sprint 2: basisgegevens invoeren
 Sprint 3: adressenboek aanmaken
@@ -17,7 +17,7 @@ Sprint 3: adressenboek aanmaken
 - Gebruikservaring evalueren: Begrijpen hoe gebruikers het proces ervaren, inclusief mogelijke verwarring of obstakels.
 - Functies en interactie: Inzicht krijgen in of de belangrijkste functionaliteiten goed werken en of de gebruiker zich ondersteund voelt tijdens het proces.
 - Verzamelen van verbeterpunten: Feedback verzamelen over welke aspecten van het proces geoptimaliseerd kunnen worden voor een betere gebruikerservaring.
-- Als e-KS gebruikt word als vervanger voor eventuele andere programmatuur(excl, papier, ) is het fijn om te weten of ze de verwachting hebben om de applicatie als vervanger te gebruiken voor bijv. exl. en de verwachting hebben dat alles is opgeslagen. 
+- Als e-KS gebruikt wordt als vervanger voor eventuele andere programmatuur(excl, papier, ) is het fijn om te weten of ze de verwachting hebben om de applicatie als vervanger te gebruiken voor bijv. exl. en de verwachting hebben dat alles is opgeslagen. 
 
 ## Algemene vragen
 - Met welke voorkennis en programmatuur maak je een lijst normaal gesproken aan. Heb je al eerder een lijst elders aangemaakt voordat je OSV opstarte? 
