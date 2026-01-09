@@ -1,12 +1,6 @@
-use anyhow::Result;
 use eks::{AppState, fixtures, logging};
 
-#[tokio::main]
-async fn main() -> Result<()> {
-    // Load environment variables from a .env file if present
-    #[cfg(feature = "dev-features")]
-    dotenvy::dotenv().ok();
-
+async fn run() -> Result<(), Box<dyn std::error::Error>> {
     // Initialize tracing subscriber (logging)
     logging::init();
 
@@ -18,4 +12,12 @@ async fn main() -> Result<()> {
     fixtures::load(&state).await?;
 
     Ok(())
+}
+
+#[tokio::main]
+async fn main() {
+    if let Err(err) = run().await {
+        eprintln!("Error loading fixtures: {:?}", err);
+        std::process::exit(1);
+    }
 }

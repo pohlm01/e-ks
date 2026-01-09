@@ -14,16 +14,17 @@ commands:
     args:
       - compose
       - rm
-      - -f
-      - -v
+      - --force
+      - --volumes
   docker_compose_up:
     command: docker
     args:
       - compose
       - up
-      - -d
+      - --quiet-pull
+      - --detach
   esbuild_bundle:
-    command: ./tools/esbuild
+    command: ./bin/esbuild
     args:
       - --bundle
       - frontend/index.ts
@@ -47,6 +48,7 @@ commands:
     args:
       - install
       - cargo-watch
+      - --locked
   install_cargo_sqlx:
     command: cargo
     args:
@@ -55,3 +57,14 @@ commands:
       - --no-default-features
       - --features
       - postgres
+      - --locked
+  migrate_database:
+    command: cargo
+    args:
+      - sqlx
+      - database
+      - reset
+      - -y
+      - --force
+      - --database-url
+      - postgres://eks@localhost/eks

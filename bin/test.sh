@@ -2,7 +2,10 @@
 
 set -euo pipefail
 
-./tools/esbuild --bundle frontend/index.ts \
+export MEMORY_SERVE_QUIET=1
+export SQLX_OFFLINE=true
+
+./bin/esbuild --bundle frontend/index.ts \
     --outdir=frontend/static \
     --minify \
     --sourcemap \
@@ -14,5 +17,10 @@ set -euo pipefail
 cargo build \
     --features memory-serve \
     --no-default-features \
+    --features memory-serve,fixtures,dev-features \
     --release \
     --bin eks
+
+pushd playwright
+    docker compose run --rm --quiet-pull --quiet-build playwright
+popd

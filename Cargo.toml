@@ -12,26 +12,16 @@ documentation = "https://kiesraad.github.io/e-KS/e_ks/"
 repository = "https://github.com/kiesraad/e-KS"
 
 [features]
-default = ["livereload", "dev-features", "http-logging"]
+default = ["fixtures", "livereload", "dev-features", "http-logging"]
 memory-serve = ["dep:memory-serve"]
 fixtures = []
 livereload = []
-dev-features = ["dep:anyhow", "dep:dotenvy"]
+dev-features = []
 http-logging = ["dep:tower-http"]
 
 [[bin]]
 name = "fixtures"
 required-features = ["fixtures", "dev-features"]
-test = false
-
-[[bin]]
-name = "development"
-required-features = ["dev-features"]
-test = false
-
-[[bin]]
-name = "setup"
-required-features = ["dev-features"]
 test = false
 
 [dependencies]
@@ -48,7 +38,6 @@ tracing-subscriber = { version = "0.3.20", features = ["env-filter", "fmt"] }
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.145"
 serde_urlencoded = "0.7"
-anyhow = { version = "1.0.86", optional = true }
 
 # blessed.rs
 rand = "0.9.2"
@@ -58,7 +47,6 @@ uuid = { version = "1.11.0", features = ["serde", "v4"] }
 
 # well maintained + many downloads
 askama = "0.15.1" # 31M downloads (Dirkjan Ochtman)
-dotenvy = { version = "0.15.7", optional = true } # 69M downloads (Allan Zhang)
 strum = { version = "0.27.2", features = ["derive"] } # 307M downloads (Peter Glotfelty)
 csv = "1.4.0" # 136M downloads (Andrew Gallant)
 serde-saphyr = "0.0.13"
