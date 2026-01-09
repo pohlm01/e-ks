@@ -27,6 +27,16 @@ helm upgrade --install --namespace cert-manager scaleway-certmanager-webhook sca
   --set secret.secretKey=<YOUR-SECRET_KEY>
 ```
 
+## Oauth2 proxy
+```shell
+helm repo add oauth2-proxy https://oauth2-proxy.github.io/manifests
+helm upgrade --install oauth2-proxy oauth2-proxy/oauth2-proxy -n ingress \
+ -f oauth2-proxy-values.yaml \
+ --set config.clientID=<YOUR-CLIENT-ID> \
+ --set config.clientSecret=<YOUR-CLIENT-SECRET>  \
+ --set config.cookieSecret=<YOUR-COOKIE-SECRET>
+```
+
 ## Cert manager
 
 ```shell
