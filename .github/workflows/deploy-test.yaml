@@ -17,6 +17,7 @@ jobs:
       branch-name: ${{ steps.branch-name.outputs.branch-name }}
     env:
       CARGO_TERM_COLOR: always
+      SQLX_OFFLINE: true
     steps:
       - uses: actions/checkout@v6
 
@@ -61,7 +62,7 @@ jobs:
         run: bin/init.sh esbuild
 
       - name: Build e-ks
-        run: ./build.sh
+        run: ./bin/build.sh
 
       - name: Build fixtures
         run: cargo build --release --bin fixtures --features fixtures,dev-features
