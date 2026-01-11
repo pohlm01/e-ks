@@ -1,24 +1,33 @@
-<table class="sortable" data-sortable-update-url="{{ details.list.reorder_path() }}">
+<table class="sortable" id="candidate-table" data-sortable-update-url="{{ details.list.reorder_path() }}" data-max="{{ max_candidates }}">
   <thead>
     <tr>
-      <th scope="col"></th>
-      <th scope="col">{{ t!("candidate_list.fields.position")|trans }}</th>
+      <th scope="col" colspan="2">{{ t!("candidate_list.fields.position")|trans }}</th>
       <th scope="col">{{ t!("person.fields.name")|trans }}</th>
       <th scope="col">{{ t!("person.fields.locality")|trans }}</th>
-      <th scope="col"></th>
+      <th scope="col">
+        {{ t!("candidate_list.candidate_count")|trans|fill(details.candidates.len().to_string())|fill(max_candidates.to_string())|safe }}
+      </th>
     </tr>
   </thead>
   <tbody>
     {% for candidate in details.candidates %}
     <tr class="clickable" data-id="{{ candidate.person.id }}">
-      <td class="drag-handle"><span></span></td>
-      <td class="font-number">{{ candidate.position }}</td>
+      <td class="drag-handle"></td>
       <td>
-        <strong>{{ candidate.person.last_name }}</strong>
-        {{ candidate.person.initials }}
-        ({{ candidate.person.first_name_display() }})
+        <span class="position-badge">{{ candidate.position }}</span>
       </td>
-      <td>{{ candidate.person.locality|display }}</td>
+      <td>
+        <strong>{{ candidate.person.last_name }},</strong>
+        {{ candidate.person.initials }}
+        {% if let Some(first_name) = candidate.person.first_name %}
+        ({{ first_name }})
+        {% endif %}
+      </td>
+      <td>
+        {% if let Some(locality) = candidate.person.locality %}
+          {{ locality }}
+        {% endif %}
+      </td>
       <td>
         <a href="{{ candidate.person.edit_path() }}">
           <span>{{ t!("action.edit")|trans }}</span>
@@ -28,3 +37,8 @@
     {% endfor %}
   </tbody>
 </table>
+{% if details.candidates.len() > max_candidates %}
+<p class="note-warning mt-md">
+  {{ t!("candidate_list.view.max_candidates_exceeded")|trans|fill(max_candidates.to_string()) }}
+</p>
+{% endif %}

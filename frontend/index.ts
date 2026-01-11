@@ -5,5 +5,6 @@ import './scripts/modal';
 import './scripts/sortable';
 import './scripts/lookup';
 import './scripts/locality-suggestions';
+import './scripts/sticky-nav';
 
 import "./styles/index.css";
