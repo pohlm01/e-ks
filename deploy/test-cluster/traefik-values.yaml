@@ -3,12 +3,10 @@ providers:
     allowCrossNamespace: true
   kubernetesGateway:
     enabled: true
-  # TODO Disable and move to gateway API
   kubernetesIngress:
     enabled: false
-
-ingressClass:
-  name: traefik
+  kubernetesIngressNginx:
+    enabled: false
 
 service:
   annotations:
