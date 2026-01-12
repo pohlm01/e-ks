@@ -179,6 +179,7 @@
   --base-white: #ffffff;
 
   --accent-orange: #ef8050;
+  --accent-blue: #C9D8E9;
 
   --interactive-default: #155eef;
 
@@ -193,6 +194,8 @@
   --menu-accept: var(--color-success);
   --menu-warning: var(--color-warning);
   --menu-error: var(--color-error-darker);
+
+  --badge-size: 2.25rem;
 
   --badge-polling-station: var(--base-white);
   --badge-polling-station-bg: #4a75ba;

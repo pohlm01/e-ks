@@ -16,9 +16,12 @@
         <li><a href="/" class="logout">{{ t!("action.signout")|trans }}</a></li>
       </ul>
     </nav>
-    <h1>{% block page_title %}{{ t!("common.title")|trans }}{% endblock %}</h1>
+    <div class="header-content">
+      <h1>{% block page_title %}{{ t!("common.title")|trans }}{% endblock %}</h1>
+      {% block header_action %}{% endblock %}
+    </div>
   </header>
-  <main>
+  <main class="{% block main_class %}{% endblock %}">
     {% block content %}{% endblock %}
   </main>
   <footer>

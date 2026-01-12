@@ -218,6 +218,7 @@ class SortableTable {
   private drag: DragSession | null = null;
   private suppressClick = false;
   private dragStartOrder: string[] | null = null;
+  private timeout: number | null = null;
 
   constructor(
     tbody: HTMLTableSectionElement,
@@ -244,7 +245,7 @@ class SortableTable {
       handle.addEventListener("mousedown", (event) => {
         event.preventDefault();
 
-        this.clearAnimations();
+        this.reset();
         this.startDrag(row, event.clientY);
       });
 
@@ -262,7 +263,7 @@ class SortableTable {
 
           event.preventDefault();
 
-          this.clearAnimations();
+          this.reset();
           this.startDrag(row, touch.clientY, touch.identifier);
         },
         { passive: false },
@@ -403,6 +404,11 @@ class SortableTable {
     const movedDown: HTMLTableRowElement[] = [];
 
     finalOrder.forEach((row, index) => {
+      // skipo the dragged element
+      if (row === drag.target) {
+        return;
+      }
+
       const previousIndex = this.rows.indexOf(row);
       if (previousIndex > index) {
         movedUp.push(row);
@@ -429,18 +435,38 @@ class SortableTable {
 
     if (draggedRow) {
       draggedRow.classList.add("flash-success");
-      window.setTimeout(
-        () => draggedRow.classList.remove("flash-success"),
-        2000,
-      );
+      movedUp.forEach((row) => {
+        this.applyIndicator(row, "up");
+      });
+      movedDown.forEach((row) => {
+        this.applyIndicator(row, "down");
+      });
+
+      this.timeout = window.setTimeout(() => {
+        document
+          .querySelectorAll(".flash-success, .pos-up, .pos-down")
+          .forEach((el) => {
+            el.classList.add("fade-out");
+          });
+
+        this.timeout = window.setTimeout(() => {
+          this.reset();
+        }, 500);
+      }, 2000);
+    }
+  }
+
+  private reset() {
+    if (this.timeout) {
+      window.clearTimeout(this.timeout);
+      this.timeout = null;
     }
 
-    movedUp.forEach((row) => {
-      this.applyIndicator(row, "up");
-    });
-    movedDown.forEach((row) => {
-      this.applyIndicator(row, "down");
-    });
+    document
+      .querySelectorAll(".flash-success, .pos-up, .pos-down, .fade-out")
+      .forEach((el) => {
+        el.classList.remove("flash-success", "pos-up", "pos-down", "fade-out");
+      });
   }
 
   /**
@@ -520,24 +546,6 @@ class SortableTable {
   }
 
   /**
-   * Clear any ongoing row animations/indicators before a new drag.
-   */
-  private clearAnimations() {
-    this.rows.forEach((row) => {
-      row.classList.remove("flash-success");
-      const cell = this.getPositionCell(row);
-      if (cell) {
-        cell.classList.remove(
-          "position-indicator",
-          "pos-up",
-          "pos-down",
-          "fade-out",
-        );
-      }
-    });
-  }
-
-  /**
    * Apply position change indicator styling to a row.
    */
   private applyIndicator(row: HTMLTableRowElement, direction: "up" | "down") {
@@ -546,22 +554,8 @@ class SortableTable {
       return;
     }
 
-    cell.classList.remove("position-indicator", "pos-up", "pos-down");
-    cell.classList.add(
-      "position-indicator",
-      direction === "up" ? "pos-up" : "pos-down",
-    );
-    window.setTimeout(() => {
-      cell.classList.add("fade-out");
-      window.setTimeout(() => {
-        cell.classList.remove(
-          "position-indicator",
-          "pos-up",
-          "pos-down",
-          "fade-out",
-        );
-      }, 2000);
-    }, 500);
+    cell.classList.remove("pos-up", "pos-down");
+    cell.classList.add(direction === "up" ? "pos-up" : "pos-down");
   }
 
   /**
@@ -593,9 +587,14 @@ class SortableTable {
         return;
       }
 
+      const indicator = cell.querySelector(".position-badge");
+      if (!indicator) {
+        return;
+      }
+
       const newValue = String(index + 1);
-      if (cell.textContent !== newValue) {
-        cell.textContent = newValue;
+      if (indicator.textContent !== newValue) {
+        indicator.textContent = newValue;
       }
     });
   }

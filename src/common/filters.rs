@@ -43,8 +43,12 @@ pub fn trans(key: &[&'static str], values: &dyn askama::Values) -> askama::Resul
 }
 
 #[askama::filter_fn]
-pub fn fill<S: AsRef<str>>(value: &str, _: &dyn askama::Values, args: S) -> askama::Result<String> {
-    Ok(value.replace("{}", args.as_ref()))
+pub fn fill<S: AsRef<str>, T: AsRef<str>>(
+    value: S,
+    _: &dyn askama::Values,
+    args: T,
+) -> askama::Result<String> {
+    Ok(value.as_ref().replacen("{}", args.as_ref(), 1))
 }
 
 #[askama::filter_fn]

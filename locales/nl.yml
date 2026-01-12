@@ -9,9 +9,14 @@ action:
 candidate_list:
   actions:
     add: Lijst aanmaken
-    back_to_list: Terug naar kandidatenlijsten
+    edit: Lijstgegevens
+    back_to_list: Terug
     view: Bekijken
     manage: Beheer lijst
+    add_candidates: Voeg kandidaten toe aan de lijst
+    add_existing: Bestaande
+    add_new: Nieuwe
+    edit_list_details: Pas hier de lijstgegevens aan
   add_candidate: Kandidaat toevoegen
   fields:
     created_at: Aangemaakt op
@@ -34,9 +39,11 @@ candidate_list:
   empty: Geen kandidatenlijsten gevonden.
   title: Kandidatenlijsten
   title_single: Lijststel
+  candidate_count: '<strong>{}</strong> / {} kandidaten'
   view:
     empty: Deze kandidatenlijst heeft nog geen kandidaten.
     title: Kandidatenlijst
+    max_candidates_exceeded: De lijst mag maximaal uit {} kandidaten bestaan.
 form:
   errors:
     invalid_field: The '{}' field contains an invalid value.

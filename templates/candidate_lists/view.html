@@ -1,46 +1,61 @@
 {% extends "layout.html" %}
 
-{% block page_title %}{{ t!("candidate_list.view.title")|trans }}{% endblock %}
+{% block page_title %}{{ t!("candidate_list.title_single")|trans }}{% endblock %}
 {% block candidate_lists_nav_class %}active{% endblock %}
+{% block main_class %}pt-sm{% endblock %}
 
-{% block content %}
-<nav>
-  <a href="{{ CandidateList::list_path() }}" class="button md secondary">
+{% block header_action %}
+  <a href="{{ CandidateList::list_path() }}" class="button secondary">
     {{ t!("candidate_list.actions.back_to_list")|trans }}
   </a>
-</nav>
+{% endblock %}
 
-<dialog class="modal">
-  <form method="post" action="{{ details.list.add_person_path() }}">
-    <button class="close-modal" aria-label="{{ t!("action.close")|trans }}">
-      <span>
-        {{ t!("action.close")|trans }}
-      </span>
-    </button>
-    <h2>
-      {{ t!("candidate_list.add_candidate")|trans }}
-    </h2>
-    {% if persons.is_empty() %}
-    <p>{{ t!("person.view.empty")|trans }}</p>
-    {% else %}
-    {% include "candidate_lists/add_person_table.html" %}
-    {% endif %}
-  </form>
-</dialog>
+{% block content %}
+  <nav class="sticky-nav">
+    <div class="sticky-nav-bar">
+      <div>
+        <p>{{ t!("candidate_list.actions.add_candidates")|trans }}:</p>
+        <div class="buttons">
+          <button class="button secondary icon-plus open-modal" type="button">
+            {{ t!("candidate_list.actions.add_existing")|trans }}
+          </button>
+          <a href="{{ Person::new_path() }}" class="button secondary icon-plus open-modal" type="button">
+            {{ t!("candidate_list.actions.add_new")|trans }}
+          </a>
+        </div>
+      </div>
+      <div>
+        <p>{{ t!("candidate_list.actions.edit_list_details")|trans }}:</p>
+        <a href="#edit-list" class="button secondary icon-edit">
+          {{ t!("candidate_list.actions.edit")|trans }}
+        </a>
+      </div>
+    </div>
+  </nav>
 
-{% if details.candidates.is_empty() %}
-<section>
-  <p>{{ t!("candidate_list.view.empty")|trans }}</p>
-</section>
-{% else %}
-<section>
-  {% include "candidate_lists/candidates_table.html" %}
-</section>
-{% endif %}
+  <dialog class="modal">
+    <form method="post" action="{{ details.list.add_person_path() }}">
+      <button class="close-modal" aria-label="{{ t!("action.close")|trans }}">
+        <span>
+          {{ t!("action.close")|trans }}
+        </span>
+      </button>
+      <h2>
+        {{ t!("candidate_list.add_candidate")|trans }}
+      </h2>
+      {% if persons.is_empty() %}
+      <p>{{ t!("person.view.empty")|trans }}</p>
+      {% else %}
+      {% include "candidate_lists/add_person_table.html" %}
+      {% endif %}
+    </form>
+  </dialog>
 
-<nav class="mt-lg">
-  <button class="button open-modal" type="button">
-    {{ t!("candidate_list.add_candidate")|trans }}
-  </button>
-</nav>
+  <section>
+  {% if details.candidates.is_empty() %}
+    <p>{{ t!("candidate_list.view.empty")|trans }}</p>
+  {% else %}
+    {% include "candidate_lists/candidates_table.html" %}
+  {% endif %}
+  </section>
 {% endblock %}

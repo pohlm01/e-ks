@@ -1,0 +1,16 @@
+
+
+.position-badge {
+    display: inline-block;
+    width: var(--badge-size);
+    height: var(--badge-size);
+    line-height: var(--badge-size);
+    text-align: center;
+    border-radius: 4px;
+    transition: background-color 0.5s ease-in-out;
+    
+    font-family: var(--font-header);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    background-color: var(--blue-200);
+}

@@ -9,9 +9,14 @@ action:
 candidate_list:
   actions:
     add: Add list
-    back_to_list: Back to candidate lists
+    edit: List details
+    back_to_list: Back
     view: View
     manage: Manage list
+    add_candidates: Add candidates to the list
+    add_existing: Existing
+    add_new: New
+    edit_list_details: Edit the list details here
   add_candidate: Add candidate
   fields:
     created_at: Created at
@@ -34,9 +39,11 @@ candidate_list:
   empty: No candidate lists found.
   title: Candidate lists
   title_single: Candidate list
+  candidate_count: '{} / {} candidates'
   view:
     empty: This candidate list has no persons yet.
     title: Candidate list
+    max_candidates_exceeded: The maximum number of candidates ({}) has been exceeded.
 form:
   errors:
     invalid_field: The '{}' field contains an invalid value.
