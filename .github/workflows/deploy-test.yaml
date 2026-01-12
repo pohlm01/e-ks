@@ -144,7 +144,7 @@ jobs:
       - name: Set the current version in the Helm chart
         uses: mikefarah/yq@master
         with:
-          cmd: yq -i '.version="${{ needs.rust.outputs.tag }}" | .appVersion="${{ needs.rust.outputs.tag }}"' deploy/e-ks/Chart.yaml
+          cmd: yq -i '.appVersion="${{ needs.rust.outputs.tag }}"' deploy/e-ks/Chart.yaml
       - name: Create namespace
         shell: bash
         run: |
