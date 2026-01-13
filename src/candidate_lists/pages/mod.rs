@@ -13,6 +13,7 @@ use super::{
 
 mod add_person;
 mod create;
+mod edit_position;
 mod list;
 mod reorder;
 mod view;
@@ -43,6 +44,16 @@ pub(crate) struct CandidateListReorderPath {
     pub(crate) id: Uuid,
 }
 
+#[derive(TypedPath, Deserialize)]
+#[typed_path(
+    "/candidate-lists/{candidate_list}/reorder/{person}",
+    rejection(AppError)
+)]
+pub(crate) struct EditCandidatePositionPath {
+    pub(crate) candidate_list: Uuid,
+    pub(crate) person: Uuid,
+}
+
 impl CandidateList {
     pub fn list_path() -> String {
         CandidateListsPath {}.to_uri().to_string()
@@ -56,6 +67,15 @@ impl CandidateList {
         CandidateListAddPersonPath { id: self.id }
             .to_uri()
             .to_string()
+    }
+
+    pub fn edit_candidate_position_path(&self, person_id: &Uuid) -> String {
+        EditCandidatePositionPath {
+            candidate_list: self.id,
+            person: *person_id,
+        }
+        .to_uri()
+        .to_string()
     }
 
     pub fn view_path(&self) -> String {
@@ -79,7 +99,10 @@ pub fn router() -> Router<AppState> {
         .typed_get(create::new_candidate_list_form)
         .typed_post(create::create_candidate_list)
         .typed_get(view::view_candidate_list)
+        .typed_get(add_person::add_existing_person_to_candidate_list)
         .typed_post(add_person::add_person_to_candidate_list)
+        .typed_get(edit_position::edit_candidate_position)
+        .typed_post(edit_position::update_candidate_position)
         .typed_post(reorder::reorder_candidate_list)
 }
 
@@ -265,8 +288,8 @@ mod tests {
         repository::create_candidate_list(&mut conn, &list).await?;
         persons_repository::create_person(&mut conn, &person).await?;
 
-        let response = view::view_candidate_list(
-            ViewCandidateListPath { id: list_id },
+        let response = add_person::add_existing_person_to_candidate_list(
+            CandidateListAddPersonPath { id: list_id },
             Context::new(Locale::En),
             DbConnection(pool.acquire().await?),
         )
@@ -276,7 +299,7 @@ mod tests {
 
         assert_eq!(response.status(), StatusCode::OK);
         let body = response_body_string(response).await;
-        assert!(body.contains(&format!("/candidate-lists/{list_id}/add")));
+        assert!(body.contains(&list.add_person_path()));
         assert!(body.contains("Doe"));
 
         Ok(())

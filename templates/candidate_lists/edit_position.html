@@ -1,0 +1,29 @@
+{% extends "candidate_lists/view.html" %}
+
+{% block body_class %}overlay-open{% endblock %}
+
+{% block overlay %}
+<div class="overlay-backdrop"></div>
+<form method="post" action="{{ details.list.edit_candidate_position_path(candidate.person.id) }}" class="overlay">
+  <header>
+    <h2>
+      <span class="position-badge">{{ candidate.position }}</span>
+      {{ candidate.person.display_name() }}
+    </h2>
+    <a href="{{ details.list.view_path() }}" class="close-overlay" aria-label="{{ t!("action.close")|trans }}">
+      <span>
+        {{ t!("action.close")|trans }}
+      </span>
+    </a>
+  </header>
+  <div class="overlay-content steps">
+    {% include "candidate_lists/candidate_overlay_steps.html" %}
+    {% include "candidate_lists/position_form.html" %}
+  </div>
+  <footer>
+    <button type="submit" class="button" name="action" value="move">
+      {{ t!("action.save")|trans }}
+    </button>
+  </footer>
+</form>
+{% endblock %}
