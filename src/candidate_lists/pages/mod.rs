@@ -12,10 +12,13 @@ use super::{
 };
 
 mod add_person;
+mod address;
 mod create;
+mod create_person;
 mod edit_position;
 mod list;
 mod reorder;
+mod update_person;
 mod view;
 
 #[derive(TypedPath, Deserialize)]
@@ -54,6 +57,29 @@ pub(crate) struct EditCandidatePositionPath {
     pub(crate) person: Uuid,
 }
 
+#[derive(TypedPath, Deserialize)]
+#[typed_path("/candidate-lists/{candidate_list}/new", rejection(AppError))]
+pub(crate) struct CandidateListNewPersonPath {
+    pub(crate) candidate_list: Uuid,
+}
+
+#[derive(TypedPath, Deserialize)]
+#[typed_path("/candidate-lists/{candidate_list}/edit/{person}", rejection(AppError))]
+pub(crate) struct CandidateListEditPersonPath {
+    pub(crate) candidate_list: Uuid,
+    pub(crate) person: Uuid,
+}
+
+#[derive(TypedPath, Deserialize)]
+#[typed_path(
+    "/candidate-lists/{candidate_list}/address/{person}",
+    rejection(AppError)
+)]
+pub(crate) struct CandidateListEditAddressPath {
+    pub(crate) candidate_list: Uuid,
+    pub(crate) person: Uuid,
+}
+
 impl CandidateList {
     pub fn list_path() -> String {
         CandidateListsPath {}.to_uri().to_string()
@@ -87,6 +113,32 @@ impl CandidateList {
             .to_uri()
             .to_string()
     }
+
+    pub fn new_person_path(&self) -> String {
+        CandidateListNewPersonPath {
+            candidate_list: self.id,
+        }
+        .to_uri()
+        .to_string()
+    }
+
+    pub fn edit_person_path(&self, person_id: &Uuid) -> String {
+        CandidateListEditPersonPath {
+            candidate_list: self.id,
+            person: *person_id,
+        }
+        .to_uri()
+        .to_string()
+    }
+
+    pub fn edit_person_address_path(&self, person_id: &Uuid) -> String {
+        CandidateListEditAddressPath {
+            candidate_list: self.id,
+            person: *person_id,
+        }
+        .to_uri()
+        .to_string()
+    }
 }
 
 fn candidate_list_not_found(id: Uuid, locale: Locale) -> AppError {
@@ -95,15 +147,24 @@ fn candidate_list_not_found(id: Uuid, locale: Locale) -> AppError {
 
 pub fn router() -> Router<AppState> {
     Router::new()
+        // manage lists
         .typed_get(list::list_candidate_lists)
         .typed_get(create::new_candidate_list_form)
         .typed_post(create::create_candidate_list)
+        // manage single list
         .typed_get(view::view_candidate_list)
-        .typed_get(add_person::add_existing_person_to_candidate_list)
+        .typed_post(reorder::reorder_candidate_list)
+        .typed_get(add_person::add_existing_person)
         .typed_post(add_person::add_person_to_candidate_list)
+        // manage person / candidate
         .typed_get(edit_position::edit_candidate_position)
         .typed_post(edit_position::update_candidate_position)
-        .typed_post(reorder::reorder_candidate_list)
+        .typed_get(create_person::new_person_candidate_list)
+        .typed_post(create_person::create_person_candidate_list)
+        .typed_get(address::edit_person_address_form)
+        .typed_post(address::update_person_address)
+        .typed_get(update_person::edit_person_form)
+        .typed_post(update_person::update_person)
 }
 
 pub(super) async fn load_candidate_list(
@@ -154,14 +215,21 @@ mod tests {
             id,
             gender: Some(Gender::Female),
             last_name: last_name.to_string(),
+            last_name_prefix: None,
             first_name: Some("Marlon".to_string()),
             initials: "M.B.".to_string(),
             date_of_birth: Some(NaiveDate::from_ymd_opt(1990, 2, 1).unwrap()),
+            bsn: None,
             locality: Some("Utrecht".to_string()),
             postal_code: Some("1234 AB".to_string()),
             house_number: Some("10".to_string()),
             house_number_addition: Some("A".to_string()),
             street_name: Some("Stationsstraat".to_string()),
+            is_dutch: Some(true),
+            custom_country: None,
+            custom_region: None,
+            address_line_1: None,
+            address_line_2: None,
             created_at: Utc::now(),
             updated_at: Utc::now(),
         }
@@ -288,7 +356,7 @@ mod tests {
         repository::create_candidate_list(&mut conn, &list).await?;
         persons_repository::create_person(&mut conn, &person).await?;
 
-        let response = add_person::add_existing_person_to_candidate_list(
+        let response = add_person::add_existing_person(
             CandidateListAddPersonPath { id: list_id },
             Context::new(Locale::En),
             DbConnection(pool.acquire().await?),
@@ -335,7 +403,7 @@ mod tests {
             .expect("location header")
             .to_str()
             .expect("location header value");
-        assert_eq!(location, list.view_path());
+        assert_eq!(location, list.edit_person_address_path(&person.id));
 
         let mut conn = pool.acquire().await?;
         let detail = repository::get_candidate_list(&mut conn, &list_id)

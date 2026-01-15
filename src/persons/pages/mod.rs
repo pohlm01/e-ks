@@ -4,11 +4,13 @@ use serde::Deserialize;
 use uuid::Uuid;
 
 use crate::{
-    AppError, AppState,
+    AppError, AppState, Locale,
     pagination::Pagination,
     persons::structs::{Person, PersonSort},
+    t,
 };
 
+mod address;
 mod create;
 mod delete;
 mod list;
@@ -23,7 +25,7 @@ pub(crate) struct PersonsPath;
 pub(crate) struct PersonsNewPath;
 
 #[derive(TypedPath, Deserialize)]
-#[typed_path("/persons/{id}", rejection(AppError))]
+#[typed_path("/persons/{id}/edit", rejection(AppError))]
 pub(crate) struct EditPersonPath {
     pub(crate) id: Uuid,
 }
@@ -31,6 +33,12 @@ pub(crate) struct EditPersonPath {
 #[derive(TypedPath, Deserialize)]
 #[typed_path("/persons/{id}/delete", rejection(AppError))]
 pub(crate) struct DeletePersonPath {
+    pub(crate) id: Uuid,
+}
+
+#[derive(TypedPath, Deserialize)]
+#[typed_path("/persons/{id}/address", rejection(AppError))]
+pub(crate) struct EditPersonAddressPath {
     pub(crate) id: Uuid,
 }
 
@@ -50,6 +58,14 @@ impl Person {
     pub fn edit_path(&self) -> String {
         EditPersonPath { id: self.id }.to_uri().to_string()
     }
+
+    pub fn edit_address_path(&self) -> String {
+        EditPersonAddressPath { id: self.id }.to_uri().to_string()
+    }
+}
+
+pub fn person_not_found(id: Uuid, locale: Locale) -> AppError {
+    AppError::NotFound(t!("person.not_found", &locale, id))
 }
 
 pub fn router() -> Router<AppState> {
@@ -59,6 +75,8 @@ pub fn router() -> Router<AppState> {
         .typed_get(create::new_person_form)
         .typed_get(update::edit_person_form)
         .typed_post(update::update_person)
+        .typed_get(address::edit_person_address_form)
+        .typed_post(address::update_person_address)
         .typed_post(delete::delete_person)
 }
 
@@ -77,10 +95,10 @@ mod tests {
 
     use crate::{
         AppState, Context, CsrfTokens, DbConnection, Locale,
-        pagination::{Pagination, SortDirection},
+        pagination::Pagination,
         persons::{
             repository,
-            structs::{Gender, Person, PersonForm, PersonSort},
+            structs::{Gender, Person, PersonForm},
         },
         test_utils::response_body_string,
     };
@@ -90,14 +108,21 @@ mod tests {
             id,
             gender: Some(Gender::Female),
             last_name: "Doe".to_string(),
+            last_name_prefix: None,
             first_name: Some("Marlon".to_string()),
             initials: "M.B.".to_string(),
             date_of_birth: Some(NaiveDate::from_ymd_opt(1990, 2, 1).unwrap()),
+            bsn: None,
             locality: Some("Utrecht".to_string()),
             postal_code: Some("1234 AB".to_string()),
             house_number: Some("10".to_string()),
             house_number_addition: Some("A".to_string()),
             street_name: Some("Stationsstraat".to_string()),
+            is_dutch: Some(true),
+            custom_country: None,
+            custom_region: None,
+            address_line_1: None,
+            address_line_2: None,
             created_at: Utc::now(),
             updated_at: Utc::now(),
         }
@@ -107,14 +132,16 @@ mod tests {
         PersonForm {
             gender: "female".to_string(),
             last_name: "Doe".to_string(),
+            last_name_prefix: "".to_string(),
             first_name: "Marlon".to_string(),
             initials: "M.B.".to_string(),
             date_of_birth: "01-02-1990".to_string(),
-            locality: "Utrecht".to_string(),
-            postal_code: "1234 AB".to_string(),
-            house_number: "10".to_string(),
-            house_number_addition: "A".to_string(),
-            street_name: "Stationsstraat".to_string(),
+            bsn: "".to_string(),
+            // locality: "Utrecht".to_string(),
+            // postal_code: "1234 AB".to_string(),
+            // house_number: "10".to_string(),
+            // house_number_addition: "A".to_string(),
+            // street_name: "Stationsstraat".to_string(),
             csrf_token: csrf_token.to_string(),
         }
     }
@@ -160,12 +187,7 @@ mod tests {
             .expect("location header")
             .to_str()
             .expect("location header value");
-        let pagination = Pagination {
-            sort: PersonSort::CreatedAt,
-            order: SortDirection::Desc,
-            ..Default::default()
-        };
-        assert_eq!(location, Person::list_path_with_pagination(&pagination));
+        assert!(location.ends_with("/address"));
 
         let mut conn = pool.acquire().await?;
         let count = repository::count_persons(&mut conn).await?;
@@ -279,12 +301,7 @@ mod tests {
             .expect("location header")
             .to_str()
             .expect("location header value");
-        let pagination = Pagination {
-            sort: PersonSort::UpdatedAt,
-            order: SortDirection::Desc,
-            ..Default::default()
-        };
-        assert_eq!(location, Person::list_path_with_pagination(&pagination));
+        assert!(location.ends_with("/address"));
 
         let mut conn = pool.acquire().await?;
         let updated = repository::get_person(&mut conn, &id)

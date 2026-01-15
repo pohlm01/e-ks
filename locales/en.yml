@@ -4,6 +4,7 @@ action:
   close: Close
   create: Create
   edit: Edit
+  next: Next
   save: Save
   signout: Sign out
 candidate_list:
@@ -20,7 +21,6 @@ candidate_list:
   add_candidate: Add candidate
   remove_candidate: Remove candidate
   edit_position: Position on the list
-  edit_personal_details: Personal details
   search_existing_person: Search existing person
   search_placeholder: Search by name, initials or localitty
   fields:
@@ -67,23 +67,36 @@ person:
     back_to_list: Back to persons
     manage: Manage persons
   created_at: Created at
+  personal_information: Personal information
+  address: Address
+  authorized_person: Authorized person
+  personal_details: Personal details
   fields:
+    bsn: Social security number (BSN)
+    country: Country
     date_of_birth: Date of birth
+    elsewhere: Elsewhere
     first_name: First name
     gender: Gender
     house_number: House number
     house_number_addition: House number addition
     initials: Initials
     last_name: Last name
+    last_name_prefix: Last name prefix
     locality: Locality
     name: Name
+    netherlands: Netherlands
     postal_code: Postal code
     street_name: Street name
+    address_line_1: Address line 1
+    address_line_2: Address line 2
+    custom_region: Region, province, or state
+    custom_country: Country
   form:
     create:
       title: Add person
     edit:
-      title: Edit person '{}'
+      title: Edit person ʻ{}ʼ
   list:
     empty: No persons found.
   not_found: Person {} not found.
@@ -95,6 +108,7 @@ person:
     empty: No details available for this person.
     title: Person details
 validation:
+  invalid_bsn: Invalid BSN.
   invalid_csrf_token: The CSRF token is invalid.
   invalid_email: Invalid email address.
   invalid_value: The provided value is not valid.

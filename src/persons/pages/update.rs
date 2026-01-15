@@ -6,17 +6,15 @@ use axum::{
 use axum_extra::extract::Form;
 
 use crate::{
-    AppError, AppResponse, AppState, Context, CsrfTokens, DbConnection, HtmlTemplate, Locale,
-    filters,
+    AppError, AppResponse, AppState, Context, CsrfTokens, DbConnection, HtmlTemplate, filters,
     form::{FormData, Validate},
-    pagination::{Pagination, SortDirection},
     persons::{
+        pages::person_not_found,
         repository,
-        structs::{Person, PersonForm, PersonSort},
+        structs::{Person, PersonForm},
     },
     t,
 };
-use uuid::Uuid;
 
 use super::EditPersonPath;
 
@@ -25,10 +23,6 @@ use super::EditPersonPath;
 struct PersonUpdateTemplate {
     person: Person,
     form: FormData<PersonForm>,
-}
-
-fn person_not_found(id: Uuid, locale: Locale) -> AppError {
-    AppError::NotFound(t!("person.not_found", &locale, id))
 }
 
 pub(crate) async fn edit_person_form(
@@ -73,14 +67,8 @@ pub(crate) async fn update_person(
         Ok(person) => {
             repository::update_person(&mut conn, &person).await?;
 
-            // Redirect to the persons list after updating, sorted by updated, so the updated person is visible at the top
-            let pagination = Pagination {
-                sort: PersonSort::UpdatedAt,
-                order: SortDirection::Desc,
-                ..Default::default()
-            };
-
-            Ok(Redirect::to(&Person::list_path_with_pagination(&pagination)).into_response())
+            // Redirect to the address edit page
+            Ok(Redirect::to(&person.edit_address_path()).into_response())
         }
     }
 }

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block page_title %}{{ t!("person.form.edit.title")|trans|fill(person.display_name()) }}{% endblock %}
+{% block persons_nav_class %}active{% endblock %}
+
+{% block content %}
+<section>
+  <form method="post" action="{{ person.edit_address_path() }}" class="form">
+    <fieldset>
+      <legend>
+        <h2>{{ t!("person.form.edit.title")|trans|fill(person.display_name()) }}</h2>
+      </legend>
+      {% include "persons/address_form.html" %}
+
+      <p class="form-field actions">
+        <button type="submit" class="button">
+          {{ t!("action.save")|trans }}
+        </button>
+        <a href="{{ Person::list_path() }}" class="button secondary">
+          {{ t!("action.cancel")|trans }}
+        </a>
+      </p>
+    </fieldset>
+  </form>
+</section>
+{% endblock %}

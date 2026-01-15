@@ -8,7 +8,7 @@ use crate::{
     AppError, Context, DbConnection, HtmlTemplate,
     candidate_lists::{
         repository,
-        structs::{CandidateList, CandidateListDetail},
+        structs::{CandidateList, CandidateListDetail, MAX_CANDIDATES},
     },
     filters,
     persons::{self, repository as persons_repository, structs::Person},
@@ -25,7 +25,7 @@ struct AddExistingPersonTemplate {
     max_candidates: usize,
 }
 
-pub async fn add_existing_person_to_candidate_list(
+pub async fn add_existing_person(
     CandidateListAddPersonPath { id }: CandidateListAddPersonPath,
     context: Context,
     DbConnection(mut conn): DbConnection,
@@ -39,7 +39,7 @@ pub async fn add_existing_person_to_candidate_list(
         AddExistingPersonTemplate {
             details,
             persons,
-            max_candidates: 80,
+            max_candidates: MAX_CANDIDATES,
         },
         context,
     ))
@@ -74,8 +74,7 @@ pub(crate) async fn add_person_to_candidate_list(
 
     let mut person_ids: Vec<Uuid> = detail.candidates.iter().map(|c| c.person.id).collect();
     person_ids.push(person.id);
-
     let updated = repository::update_candidate_list(&mut conn, &id, &person_ids).await?;
 
-    Ok(Redirect::to(&updated.list.view_path()).into_response())
+    Ok(Redirect::to(&updated.list.edit_person_address_path(&person.id)).into_response())
 }

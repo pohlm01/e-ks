@@ -3,7 +3,6 @@ use uuid::Uuid;
 
 use crate::{
     ElectoralDistrict,
-    candidate_lists::structs::MAX_CANDIDATES,
     persons::structs::{Gender, Person},
 };
 
@@ -58,7 +57,7 @@ pub(crate) async fn list_candidate_list(
             r#"
             SELECT id, electoral_districts AS "electoral_districts: Vec<ElectoralDistrict>", created_at, updated_at
             FROM candidate_lists
-            ORDER BY updated_at DESC, created_at DESC
+            ORDER BY created_at ASC
             "#,
         )
         .fetch_all(conn)
@@ -92,14 +91,21 @@ pub(super) async fn get_candidate_list(
             p.id as "id!",
             p.gender as "gender?: Gender",
             p.last_name as "last_name!",
+            p.last_name_prefix,
             p.first_name,
             p.initials as "initials!",
             p.date_of_birth,
+            p.bsn,
             p.locality as "locality",
             p.postal_code as "postal_code",
             p.house_number as "house_number",
             p.house_number_addition,
             p.street_name as "street_name",
+            p.is_dutch,
+            p.custom_country,
+            p.custom_region,
+            p.address_line_1,
+            p.address_line_2,
             p.created_at as "created_at!",
             p.updated_at as "updated_at!"
         FROM candidate_lists_persons clp
@@ -118,14 +124,21 @@ pub(super) async fn get_candidate_list(
             id: row.id,
             gender: row.gender,
             last_name: row.last_name,
+            last_name_prefix: row.last_name_prefix,
             first_name: row.first_name,
             initials: row.initials,
             date_of_birth: row.date_of_birth,
+            bsn: row.bsn,
             locality: row.locality,
             postal_code: row.postal_code,
             house_number: row.house_number,
             house_number_addition: row.house_number_addition,
             street_name: row.street_name,
+            is_dutch: row.is_dutch,
+            custom_country: row.custom_country,
+            custom_region: row.custom_region,
+            address_line_1: row.address_line_1,
+            address_line_2: row.address_line_2,
             created_at: row.created_at,
             updated_at: row.updated_at,
         },
@@ -205,12 +218,7 @@ async fn insert_candidates(
     list_id: &Uuid,
     person_ids: &[Uuid],
 ) -> Result<(), sqlx::Error> {
-    let limited_ids: Vec<Uuid> = person_ids.iter().copied().take(MAX_CANDIDATES).collect();
-    if limited_ids.is_empty() {
-        return Ok(());
-    }
-
-    let positions: Vec<i32> = (1..=limited_ids.len() as i32).collect();
+    let positions: Vec<i32> = (1..=person_ids.len() as i32).collect();
 
     sqlx::query!(
         r#"
@@ -219,7 +227,7 @@ async fn insert_candidates(
         FROM UNNEST($2::uuid[], $3::int[]) AS t(person_id, position)
         "#,
         list_id,
-        &limited_ids,
+        &person_ids,
         &positions,
     )
     .execute(&mut *executor)
@@ -250,14 +258,21 @@ mod tests {
             id,
             gender: Some(Gender::Female),
             last_name: last_name.to_string(),
+            last_name_prefix: None,
             first_name: Some("Marlon".to_string()),
             initials: "M.B.".to_string(),
             date_of_birth: Some(NaiveDate::from_ymd_opt(1990, 2, 1).unwrap()),
+            bsn: None,
             locality: Some("Utrecht".to_string()),
             postal_code: Some("1234 AB".to_string()),
             house_number: Some("10".to_string()),
             house_number_addition: Some("A".to_string()),
             street_name: Some("Stationsstraat".to_string()),
+            is_dutch: Some(true),
+            custom_country: None,
+            custom_region: None,
+            address_line_1: None,
+            address_line_2: None,
             created_at: Utc::now(),
             updated_at: Utc::now(),
         }
