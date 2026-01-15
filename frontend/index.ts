@@ -7,8 +7,10 @@ import './scripts/lookup';
 import './scripts/locality-suggestions';
 import './scripts/sticky-nav';
 import './scripts/search';
+import './scripts/modal';
 import './scripts/position-preview';
 import './scripts/form-variants';
 import './scripts/active-link';
+import './scripts/select-all-checkbox';
 
 import "./styles/index.css";

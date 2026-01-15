@@ -1,7 +1,9 @@
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use crate::{ElectoralDistrict, candidate_lists::structs::CandidateList, form::WithCsrfToken};
+use crate::{
+    ElectoralDistrict, TokenValue, candidate_lists::structs::CandidateList, form::WithCsrfToken,
+};
 use validate::Validate as ValidateDerive;
 
 #[derive(Default, Serialize, Deserialize, Clone, Debug, ValidateDerive)]
@@ -13,7 +15,39 @@ use validate::Validate as ValidateDerive;
 pub struct CandidateListForm {
     pub electoral_districts: Vec<ElectoralDistrict>,
     #[validate(csrf)]
-    pub csrf_token: String,
+    pub csrf_token: TokenValue,
+}
+
+impl CandidateListForm {
+    fn build_candidate_list(
+        validated: CandidateListFormValidated,
+        current: Option<&CandidateList>,
+    ) -> CandidateList {
+        if let Some(current) = current {
+            CandidateList {
+                id: current.id,
+                electoral_districts: validated.electoral_districts,
+                created_at: current.created_at,
+                updated_at: chrono::Utc::now(),
+            }
+        } else {
+            CandidateList {
+                id: Uuid::new_v4(),
+                electoral_districts: validated.electoral_districts,
+                created_at: chrono::Utc::now(),
+                updated_at: chrono::Utc::now(),
+            }
+        }
+    }
+}
+
+impl From<CandidateList> for CandidateListForm {
+    fn from(value: CandidateList) -> Self {
+        CandidateListForm {
+            electoral_districts: value.electoral_districts,
+            csrf_token: TokenValue(String::new()),
+        }
+    }
 }
 
 impl WithCsrfToken for CandidateListForm {
@@ -25,20 +59,31 @@ impl WithCsrfToken for CandidateListForm {
     }
 }
 
-impl CandidateListForm {
-    fn build_candidate_list(
-        validated: CandidateListFormValidated,
-        current: Option<&CandidateList>,
-    ) -> CandidateList {
-        if let Some(current) = current {
-            current.clone()
-        } else {
-            CandidateList {
-                id: Uuid::new_v4(),
-                electoral_districts: validated.electoral_districts,
-                created_at: chrono::Utc::now(),
-                updated_at: chrono::Utc::now(),
-            }
+#[derive(Default, Serialize, Deserialize, Clone, Debug, ValidateDerive)]
+#[validate(target = "()", build = "CandidateListDeleteForm::post_validate")]
+#[serde(default)]
+pub struct CandidateListDeleteForm {
+    #[validate(csrf)]
+    pub csrf_token: TokenValue,
+}
+
+impl CandidateListDeleteForm {
+    fn post_validate(_: CandidateListDeleteFormValidated, _: Option<&()>) {
+        // do nothing, we only need to validate the token
+        // but since we're deleting, we don't need  to construct anything.
+    }
+}
+
+impl From<TokenValue> for CandidateListDeleteForm {
+    fn from(csrf_token: TokenValue) -> Self {
+        CandidateListDeleteForm { csrf_token }
+    }
+}
+
+impl WithCsrfToken for CandidateListDeleteForm {
+    fn with_csrf_token(self, csrf_token: crate::form::CsrfToken) -> Self {
+        CandidateListDeleteForm {
+            csrf_token: csrf_token.value,
         }
     }
 }
@@ -69,7 +114,7 @@ mod tests {
         let tokens = CsrfTokens::default();
         let form = CandidateListForm {
             electoral_districts: vec![ElectoralDistrict::UT],
-            csrf_token: "invalid".to_string(),
+            csrf_token: TokenValue("invalid".to_string()),
         };
 
         let Err(data) = form.validate(None, &tokens) else {

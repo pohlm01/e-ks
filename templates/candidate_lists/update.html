@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block page_title %}{{ t!("candidate_list.form.update.title")|trans }}{% endblock %}
+{% block candidate_lists_nav_class %}active{% endblock %}
+
+{% block content %}
+<section>
+  <nav class="mt-lg">
+    <button class="button tertiary-destructive open-modal" type="button">
+      {{ t!("candidate_list.actions.delete_list")|trans }}
+    </button>
+  </nav>
+
+  <dialog class="modal">
+    <form method="post" action="{{ candidate_list.delete_path() }}" class="form">
+      <input type="hidden" name="csrf_token" value="{{ form.data.csrf_token }}">
+      <button class="close-modal" aria-label="{{ t!("action.close")|trans }}">
+        <span>
+          {{ t!("action.close")|trans }}
+        </span>
+      </button>
+      <p class="mt-lg mb-lg">{{ t!("candidate_list.form.delete_warning_text")|trans }}</p>
+      <button type="submit" class="button primary-destructive">
+        {{ t!("action.delete")|trans }}
+      </button>
+      <button type="submit" class="button secondary close">
+        {{ t!("action.cancel")|trans }}
+      </button>
+    </form>
+  </dialog>
+
+  <form method="post" action="{{ candidate_list.update_path() }}" class="form">
+    {% include "candidate_lists/inner_form.html" %}
+    <p class="form-field actions">
+      <button type="submit" class="button">
+        {{ t!("action.edit")|trans }}
+      </button>
+      <a href="{{ CandidateList::list_path() }}" class="button secondary">
+        {{ t!("action.cancel")|trans }}
+      </a>
+    </p>
+
+  </form>
+</section>
+{% endblock %}

@@ -1,12 +1,12 @@
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
-use validate::Validate as ValidateDerive;
+use validate::Validate;
 
 use crate::{CsrfToken, form::*};
 
 use super::Person;
 
-#[derive(Default, Serialize, Deserialize, Clone, Debug, ValidateDerive)]
+#[derive(Default, Serialize, Deserialize, Clone, Debug, Validate)]
 #[validate(target = "Person", build = "AddressForm::build_address")]
 pub struct AddressForm {
     #[validate(with = "validate_length(2, 255)", optional)]
@@ -30,7 +30,7 @@ pub struct AddressForm {
     #[validate(parse = "bool")]
     pub is_dutch: String,
     #[validate(csrf)]
-    pub csrf_token: String,
+    pub csrf_token: TokenValue,
 }
 
 impl From<Person> for AddressForm {
@@ -50,7 +50,7 @@ impl From<Person> for AddressForm {
                 .as_ref()
                 .map(bool::to_string)
                 .unwrap_or("true".to_owned()),
-            csrf_token: String::new(),
+            csrf_token: Default::default(),
         }
     }
 }

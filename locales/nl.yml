@@ -5,6 +5,7 @@ action:
   create: Aanmaken
   edit: Bewerken
   next: Volgende
+  delete: Verwijderen
   save: Opslaan
   signout: Afmelden
 candidate_list:
@@ -18,11 +19,16 @@ candidate_list:
     add_existing: Bestaande
     add_new: Nieuwe
     edit_list_details: Pas hier de lijstgegevens aan
+    select_all_districts: Selecteer alle kieskringen
+    delete_list: Kandidatenlijst verwijderen
+    add_candidate: Kandidaat toevoegen
+    edit_details: Lijstgegevens bewerken
   add_candidate: Kandidaat toevoegen
   remove_candidate: Uit deze lijst verwijderen
   edit_position: Volgorde op de lijst
   search_existing_person: Zoek bestaande persoon
   search_placeholder: Zoek op naam, voorletters of woonplaats
+  edit_details: Lijstgegevens bewerken
   fields:
     created_at: Aangemaakt op
     electoral_districts: Kiesdistricten
@@ -33,9 +39,12 @@ candidate_list:
     position: Positie
     updated_at: Laatst bijgewerkt op
   form:
+    delete_warning_text: Weet u zeker dat u deze kandidatenlijst wilt verwijderen?
+    no_electoral_districts: Geen kiesdistricten geconfigureerd.
     create:
-      no_electoral_districts: Geen kiesdistricten geconfigureerd.
       title: Kandidatenlijst aanmaken
+    update:
+      title: Kandidatenlijst aanpassen
   districts:
     all: Alle
   list:
