@@ -8,26 +8,25 @@ use axum_extra::extract::Form;
 use crate::{
     AppError, AppState, Context, CsrfTokens, DbConnection, HtmlTemplate,
     candidate_lists::{
-        self,
-        pages::{CandidateListNewPersonPath, load_candidate_list},
-        structs::{CandidateList, FullCandidateList, MAX_CANDIDATES},
+        self, CandidateList, FullCandidateList, MAX_CANDIDATES,
+        pages::{CreateCandidatePath, load_candidate_list},
     },
     filters,
     form::{FormData, Validate},
-    persons::{self, structs::PersonForm},
+    persons::{self, PersonForm},
     t,
 };
 
 #[derive(Template)]
-#[template(path = "candidate_lists/create_person.html")]
+#[template(path = "candidates/create.html")]
 struct PersonCreateTemplate {
     full_list: FullCandidateList,
     form: FormData<PersonForm>,
     max_candidates: usize,
 }
 
-pub(crate) async fn new_person_candidate_list(
-    CandidateListNewPersonPath { candidate_list }: CandidateListNewPersonPath,
+pub async fn new_person_candidate_list(
+    CreateCandidatePath { candidate_list }: CreateCandidatePath,
     context: Context,
     csrf_tokens: CsrfTokens,
     DbConnection(mut conn): DbConnection,
@@ -46,8 +45,8 @@ pub(crate) async fn new_person_candidate_list(
     .into_response())
 }
 
-pub(crate) async fn create_person_candidate_list(
-    CandidateListNewPersonPath { candidate_list }: CandidateListNewPersonPath,
+pub async fn create_person_candidate_list(
+    CreateCandidatePath { candidate_list }: CreateCandidatePath,
     context: Context,
     State(app_state): State<AppState>,
     DbConnection(mut conn): DbConnection,
@@ -78,7 +77,11 @@ pub(crate) async fn create_person_candidate_list(
             )
             .await?;
 
-            Ok(Redirect::to(&full_list.list.edit_person_address_path(&person.id)).into_response())
+            let candidate =
+                candidate_lists::repository::get_candidate(&mut conn, &candidate_list, &person.id)
+                    .await?;
+
+            Ok(Redirect::to(&candidate.edit_address_path()).into_response())
         }
     }
 }
@@ -105,10 +108,11 @@ mod tests {
         let list_id = Uuid::new_v4();
         let list = sample_candidate_list(list_id);
         let mut conn = pool.acquire().await?;
+
         candidate_lists::repository::create_candidate_list(&mut conn, &list).await?;
 
         let response = new_person_candidate_list(
-            CandidateListNewPersonPath {
+            CreateCandidatePath {
                 candidate_list: list_id,
             },
             Context::new(Locale::En),
@@ -121,7 +125,7 @@ mod tests {
 
         assert_eq!(response.status(), StatusCode::OK);
         let body = response_body_string(response).await;
-        assert!(body.contains(&list.new_person_path()));
+        assert!(body.contains(&list.new_candidate_path()));
         assert!(body.contains("name=\"csrf_token\""));
 
         Ok(())
@@ -141,7 +145,7 @@ mod tests {
         let form = sample_person_form(&csrf_token);
 
         let response = create_person_candidate_list(
-            CandidateListNewPersonPath {
+            CreateCandidatePath {
                 candidate_list: list_id,
             },
             Context::new(Locale::En),
@@ -161,12 +165,12 @@ mod tests {
             .expect("location header value");
 
         let mut conn = pool.acquire().await?;
-        let full_list = super::super::load_candidate_list(&mut conn, &list_id, Locale::En)
+        let full_list = load_candidate_list(&mut conn, &list_id, Locale::En)
             .await
             .expect("candidate list");
         assert_eq!(full_list.candidates.len(), 1);
-        let candidate_id = full_list.candidates[0].person.id;
-        assert_eq!(location, list.edit_person_address_path(&candidate_id));
+        let candidate = full_list.candidates.first().expect("candidate");
+        assert_eq!(location, candidate.edit_address_path());
 
         Ok(())
     }
@@ -186,7 +190,7 @@ mod tests {
         form.last_name = " ".to_string();
 
         let response = create_person_candidate_list(
-            CandidateListNewPersonPath {
+            CreateCandidatePath {
                 candidate_list: list_id,
             },
             Context::new(Locale::En),

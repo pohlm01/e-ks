@@ -8,9 +8,7 @@ use axum::{
 use serde::Serialize;
 use tracing::error;
 
-use crate::{Context, HtmlTemplate, filters, t};
-
-use super::app_error::AppError;
+use crate::{AppError, Context, HtmlTemplate, filters, t};
 
 /// Variants of error responses that can be sent to the client
 #[derive(Serialize)]
@@ -50,9 +48,9 @@ pub struct ErrorResponse {
 
 #[derive(Template, Clone)]
 #[template(path = "error.html")]
-struct ErrorTemplate {
-    status_code: StatusCode,
-    title: String,
+pub struct ErrorTemplate {
+    pub status_code: StatusCode,
+    pub title: String,
     message: String,
 }
 
@@ -82,7 +80,7 @@ pub async fn render_error_pages(context: Context, request: Request, next: Next) 
         None => response,
         Some(error_template) => (
             error_template.status_code,
-            HtmlTemplate(error_template.clone(), context),
+            HtmlTemplate(error_template, context),
         )
             .into_response(),
     }

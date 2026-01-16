@@ -8,42 +8,40 @@ use axum_extra::extract::Form;
 use crate::{
     AppError, AppResponse, AppState, Context, CsrfTokens, DbConnection, HtmlTemplate,
     candidate_lists::{
-        pages::{CandidateListEditAddressPath, load_candidate_list},
-        structs::{CandidateList, CandidateListEntry, FullCandidateList, MAX_CANDIDATES},
+        Candidate, CandidateList, FullCandidateList, MAX_CANDIDATES,
+        candidate_pages::CandidateListEditPersonPath, pages::load_candidate_list,
     },
     filters,
     form::{FormData, Validate},
-    persons::{self, structs::AddressForm},
+    persons::{self, PersonForm},
     t,
 };
 
 #[derive(Template)]
-#[template(path = "candidate_lists/address.html")]
-struct PersonAddressUpdateTemplate {
-    candidate: CandidateListEntry,
-    form: FormData<AddressForm>,
+#[template(path = "candidates/update.html")]
+struct PersonUpdateTemplate {
     full_list: FullCandidateList,
+    candidate: Candidate,
+    form: FormData<PersonForm>,
     max_candidates: usize,
 }
 
-pub(crate) async fn edit_person_address(
-    CandidateListEditAddressPath {
+pub async fn edit_person_form(
+    CandidateListEditPersonPath {
         candidate_list,
         person,
-    }: CandidateListEditAddressPath,
+    }: CandidateListEditPersonPath,
     context: Context,
     csrf_tokens: CsrfTokens,
     DbConnection(mut conn): DbConnection,
 ) -> AppResponse<impl IntoResponse> {
-    let full_list: FullCandidateList =
-        load_candidate_list(&mut conn, &candidate_list, context.locale).await?;
+    let full_list = load_candidate_list(&mut conn, &candidate_list, context.locale).await?;
     let candidate = full_list.get_candidate(&person, context.locale)?;
-    let form = FormData::new_with_data(AddressForm::from(candidate.person.clone()), &csrf_tokens);
 
     Ok(HtmlTemplate(
-        PersonAddressUpdateTemplate {
-            form,
-            candidate: candidate.clone(),
+        PersonUpdateTemplate {
+            form: FormData::new_with_data(PersonForm::from(candidate.person.clone()), &csrf_tokens),
+            candidate,
             full_list,
             max_candidates: MAX_CANDIDATES,
         },
@@ -51,25 +49,25 @@ pub(crate) async fn edit_person_address(
     ))
 }
 
-pub(crate) async fn update_person_address(
-    CandidateListEditAddressPath {
+pub async fn update_person(
+    CandidateListEditPersonPath {
         candidate_list,
         person,
-    }: CandidateListEditAddressPath,
+    }: CandidateListEditPersonPath,
     context: Context,
     State(app_state): State<AppState>,
     DbConnection(mut conn): DbConnection,
-    form: Form<AddressForm>,
+    form: Form<PersonForm>,
 ) -> Result<Response, AppError> {
     let full_list = load_candidate_list(&mut conn, &candidate_list, context.locale).await?;
     let candidate = full_list.get_candidate(&person, context.locale)?;
 
     match form.validate(Some(&candidate.person), app_state.csrf_tokens()) {
         Err(form_data) => Ok(HtmlTemplate(
-            PersonAddressUpdateTemplate {
+            PersonUpdateTemplate {
                 candidate,
-                form: form_data,
                 full_list,
+                form: form_data,
                 max_candidates: MAX_CANDIDATES,
             },
             context,
@@ -78,7 +76,8 @@ pub(crate) async fn update_person_address(
         Ok(person) => {
             persons::repository::update_person(&mut conn, &person).await?;
 
-            Ok(Redirect::to(&full_list.list.view_path()).into_response())
+            // Redirect to the address edit page
+            Ok(Redirect::to(&candidate.edit_path()).into_response())
         }
     }
 }
@@ -96,18 +95,17 @@ mod tests {
     use uuid::Uuid;
 
     use crate::{
-        AppState, Context, CsrfTokens, DbConnection, Locale, candidate_lists, persons,
+        AppState, Context, CsrfTokens, DbConnection, Locale, candidate_lists,
         test_utils::{
-            response_body_string, sample_address_form, sample_candidate_list,
-            sample_person_with_last_name,
+            response_body_string, sample_candidate_list, sample_person, sample_person_form,
         },
     };
 
     #[sqlx::test]
-    async fn edit_person_address_renders_candidate(pool: PgPool) -> Result<(), sqlx::Error> {
+    async fn edit_person_form_renders_candidate(pool: PgPool) -> Result<(), sqlx::Error> {
         let list_id = Uuid::new_v4();
         let list = sample_candidate_list(list_id);
-        let person = sample_person_with_last_name(Uuid::new_v4(), "Jansen");
+        let person = sample_person(Uuid::new_v4());
 
         let mut conn = pool.acquire().await?;
         candidate_lists::repository::create_candidate_list(&mut conn, &list).await?;
@@ -115,8 +113,8 @@ mod tests {
         candidate_lists::repository::update_candidate_list_order(&mut conn, &list_id, &[person.id])
             .await?;
 
-        let response = edit_person_address(
-            CandidateListEditAddressPath {
+        let response = edit_person_form(
+            CandidateListEditPersonPath {
                 candidate_list: list_id,
                 person: person.id,
             },
@@ -136,10 +134,10 @@ mod tests {
     }
 
     #[sqlx::test]
-    async fn update_person_address_persists_and_redirects(pool: PgPool) -> Result<(), sqlx::Error> {
+    async fn update_person_persists_and_redirects(pool: PgPool) -> Result<(), sqlx::Error> {
         let list_id = Uuid::new_v4();
         let list = sample_candidate_list(list_id);
-        let person = sample_person_with_last_name(Uuid::new_v4(), "Jansen");
+        let person = sample_person(Uuid::new_v4());
 
         let mut conn = pool.acquire().await?;
         candidate_lists::repository::create_candidate_list(&mut conn, &list).await?;
@@ -147,13 +145,16 @@ mod tests {
         candidate_lists::repository::update_candidate_list_order(&mut conn, &list_id, &[person.id])
             .await?;
 
+        let candidate =
+            candidate_lists::repository::get_candidate(&mut conn, &list.id, &person.id).await?;
+
         let app_state = AppState::new_for_tests(pool.clone());
         let csrf_token = app_state.csrf_tokens().issue().value;
-        let mut form = sample_address_form(&csrf_token);
-        form.locality = "Rotterdam".to_string();
+        let mut form = sample_person_form(&csrf_token);
+        form.last_name = "Updated".to_string();
 
-        let response = update_person_address(
-            CandidateListEditAddressPath {
+        let response = update_person(
+            CandidateListEditPersonPath {
                 candidate_list: list_id,
                 person: person.id,
             },
@@ -172,24 +173,22 @@ mod tests {
             .expect("location header")
             .to_str()
             .expect("location header value");
-        assert_eq!(location, list.view_path());
+        assert_eq!(location, candidate.edit_path());
 
         let mut conn = pool.acquire().await?;
         let updated = persons::repository::get_person(&mut conn, &person.id)
             .await?
             .expect("updated person");
-        assert_eq!(updated.locality, Some("Rotterdam".to_string()));
+        assert_eq!(updated.last_name, "Updated");
 
         Ok(())
     }
 
     #[sqlx::test]
-    async fn update_person_address_invalid_form_renders_template(
-        pool: PgPool,
-    ) -> Result<(), sqlx::Error> {
+    async fn update_person_invalid_form_renders_template(pool: PgPool) -> Result<(), sqlx::Error> {
         let list_id = Uuid::new_v4();
         let list = sample_candidate_list(list_id);
-        let person = sample_person_with_last_name(Uuid::new_v4(), "Jansen");
+        let person = sample_person(Uuid::new_v4());
 
         let mut conn = pool.acquire().await?;
         candidate_lists::repository::create_candidate_list(&mut conn, &list).await?;
@@ -199,11 +198,11 @@ mod tests {
 
         let app_state = AppState::new_for_tests(pool.clone());
         let csrf_token = app_state.csrf_tokens().issue().value;
-        let mut form = sample_address_form(&csrf_token);
-        form.postal_code = "a".to_string();
+        let mut form = sample_person_form(&csrf_token);
+        form.last_name = " ".to_string();
 
-        let response = update_person_address(
-            CandidateListEditAddressPath {
+        let response = update_person(
+            CandidateListEditPersonPath {
                 candidate_list: list_id,
                 person: person.id,
             },
@@ -218,7 +217,7 @@ mod tests {
 
         assert_eq!(response.status(), StatusCode::OK);
         let body = response_body_string(response).await;
-        assert!(body.contains("The value is too short"));
+        assert!(body.contains("This field must not be empty."));
 
         Ok(())
     }

@@ -9,16 +9,13 @@ use crate::{
     AppError, AppState, Context, CsrfTokens, DbConnection, ElectionConfig, ElectoralDistrict,
     HtmlTemplate, Locale,
     candidate_lists::{
-        self,
-        structs::{CandidateListForm, CandidateListSummary},
+        self, CandidateList, CandidateListForm, CandidateListSummary, pages::CandidateListNewPath,
     },
     filters,
     form::{FormData, Validate},
-    persons::{self, structs::Person},
+    persons::{self, Person},
     t,
 };
-
-use super::{CandidateList, CandidateListsNewPath};
 
 #[derive(Template)]
 #[template(path = "candidate_lists/create.html")]
@@ -31,8 +28,8 @@ struct CandidateListCreateTemplate {
     electoral_districts: &'static [ElectoralDistrict],
 }
 
-pub(crate) async fn new_candidate_list_form(
-    _: CandidateListsNewPath,
+pub async fn new_candidate_list_form(
+    _: CandidateListNewPath,
     context: Context,
     csrf_tokens: CsrfTokens,
     DbConnection(mut conn): DbConnection,
@@ -82,8 +79,8 @@ fn determine_available_districts(
         .collect()
 }
 
-pub(crate) async fn create_candidate_list(
-    _: CandidateListsNewPath,
+pub async fn create_candidate_list(
+    _: CandidateListNewPath,
     context: Context,
     State(app_state): State<AppState>,
     csrf_tokens: CsrfTokens,
@@ -144,7 +141,7 @@ mod test {
         let app_state = AppState::new_for_tests(pool.clone());
 
         let response = new_candidate_list_form(
-            CandidateListsNewPath {},
+            CandidateListNewPath {},
             Context::new(Locale::En),
             CsrfTokens::default(),
             DbConnection(pool.acquire().await?),
@@ -173,7 +170,7 @@ mod test {
         };
 
         let response = create_candidate_list(
-            CandidateListsNewPath {},
+            CandidateListNewPath {},
             Context::new(Locale::En),
             State(app_state),
             csrf_tokens,
@@ -211,7 +208,7 @@ mod test {
         };
 
         let response = create_candidate_list(
-            CandidateListsNewPath {},
+            CandidateListNewPath {},
             Context::new(Locale::En),
             State(app_state),
             csrf_tokens,

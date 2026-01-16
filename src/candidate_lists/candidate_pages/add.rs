@@ -7,18 +7,16 @@ use uuid::Uuid;
 use crate::{
     AppError, Context, DbConnection, HtmlTemplate,
     candidate_lists::{
-        self,
-        structs::{CandidateList, FullCandidateList, MAX_CANDIDATES},
+        self, CandidateList, FullCandidateList, MAX_CANDIDATES,
+        pages::{AddCandidatePath, load_candidate_list},
     },
     filters,
-    persons::{self, structs::Person},
+    persons::{self, Person},
     t,
 };
 
-use super::{CandidateListAddPersonPath, load_candidate_list};
-
 #[derive(Template)]
-#[template(path = "candidate_lists/add_existing_person.html")]
+#[template(path = "candidates/add_existing.html")]
 struct AddExistingPersonTemplate {
     full_list: FullCandidateList,
     persons: Vec<Person>,
@@ -26,7 +24,7 @@ struct AddExistingPersonTemplate {
 }
 
 pub async fn add_existing_person(
-    CandidateListAddPersonPath { id }: CandidateListAddPersonPath,
+    AddCandidatePath { id }: AddCandidatePath,
     context: Context,
     DbConnection(mut conn): DbConnection,
 ) -> Result<impl IntoResponse, AppError> {
@@ -44,12 +42,12 @@ pub async fn add_existing_person(
 }
 
 #[derive(Deserialize)]
-pub(crate) struct AddPersonForm {
+pub struct AddPersonForm {
     pub person_id: Uuid,
 }
 
-pub(crate) async fn add_person_to_candidate_list(
-    CandidateListAddPersonPath { id }: CandidateListAddPersonPath,
+pub async fn add_person_to_candidate_list(
+    AddCandidatePath { id }: AddCandidatePath,
     context: Context,
     DbConnection(mut conn): DbConnection,
     Form(form): Form<AddPersonForm>,
@@ -98,7 +96,7 @@ mod tests {
         persons::repository::create_person(&mut conn, &person).await?;
 
         let response = add_existing_person(
-            CandidateListAddPersonPath { id: list_id },
+            AddCandidatePath { id: list_id },
             Context::new(Locale::En),
             DbConnection(pool.acquire().await?),
         )
@@ -108,7 +106,7 @@ mod tests {
 
         assert_eq!(response.status(), StatusCode::OK);
         let body = response_body_string(response).await;
-        assert!(body.contains(&list.add_person_path()));
+        assert!(body.contains(&list.add_candidate_path()));
         assert!(body.contains("Jansen"));
 
         Ok(())
@@ -127,7 +125,7 @@ mod tests {
         persons::repository::create_person(&mut conn, &person).await?;
 
         let response = add_person_to_candidate_list(
-            CandidateListAddPersonPath { id: list_id },
+            AddCandidatePath { id: list_id },
             Context::new(Locale::En),
             DbConnection(pool.acquire().await?),
             Form(AddPersonForm {
